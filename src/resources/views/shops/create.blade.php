@@ -2,6 +2,7 @@
 
 @section('content')
 
+{{-- フォーム送信先のURLを指定します。この場合、shops.store という名前のルートに送信されます。 --}}
 <form class="main-ttl" method="post" action="{{ route('shops.store') }}">
 
 @csrf
@@ -10,19 +11,20 @@
 
 <div class="input-container">
     <i class="fa-regular fa-image store-image" ></i>
-    <input type="file" placeholder="お店の画像" name="image">
-        {{-- @error('name')
+    <input type="text" placeholder="画像のURL" name="image_url">
+    
+    @error('image_url')
     <p>{{ $message }}</p>
-    @enderror --}}
+    @enderror
 </div>
 
 
 <div class="input-container">
     <i class="fa-solid fa-store store-mark"></i>
     <input type="text" placeholder="店舗名" name="name">
-        {{-- @error('name')
+        @error('name')
     <p>{{ $message }}</p>
-    @enderror --}}
+    @enderror
 </div>
 
 
@@ -30,25 +32,25 @@
 <i class="fa-solid fa-map-location map-location"></i>
     <input type="text" placeholder="地域" name="area">
 
-    {{-- @error('email')
+    @error('area')
     <p>{{ $message }}</p>
-    @enderror --}}
+    @enderror
   </div>
 
   <div class="input-container">
     <i class="fa-solid fa-utensils utensils"></i>
     <input type="text" placeholder="ジャンル" name="genre">
-    {{-- @error('password')
+    @error('genre')
     <p>{{ $message }}</p>
-    @enderror --}}
+    @enderror
   </div>
 
 <div class="input-container">
 <i class="fa-solid fa-circle-info info" ></i>
     <textarea name="description"></textarea>
-        {{-- @error('name')
+        @error('description')
     <p>{{ $message }}</p>
-    @enderror --}}
+    @enderror
 </div>
 
 <div class="btn-container">
@@ -57,7 +59,9 @@
 
 </form>
 
+{{-- セッションに success というキーでメッセージが保存されている場合に処理が実行されます。 --}}
 @if (session('success'))
+{{-- Bootstrapを利用した成功メッセージのアラートボックスです。 --}}
     <div class="alert alert-success">
         {{ session('success') }}
     </div>

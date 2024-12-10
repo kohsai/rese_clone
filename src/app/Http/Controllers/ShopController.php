@@ -2,85 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ShopRequest;
 use App\Models\shop;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ShopController extends Controller
 {
+    // 店舗一覧表示
 public function index()
     {
+        // Shop モデルの all() メソッドを使って、すべての店舗情報を取得し、shops 変数に格納しています。その後、shops.index ビューに shops 変数を渡しています。
         $shops = Shop::all();
         return view('shops.index', compact('shops'));
     }
 
+    // 店舗登録フォーム表示
     public function create()
     {
         return view('shops.create');
     }
 
-    public function store(Request $request)
-    { // バリデーション処理
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'area' => 'required',
-            'genre' => 'required',
-            'description' => 'nullable',
-        ]);
-
-        $imagePath = $request->file('image')->store('public/shops');
+    // 店舗登録処理
+    public function store(ShopRequest $request)
+{
+    // バリデーション済みデータを取得
+        $validatedData = $request->validated();
 
 
         // データベースに保存
-        Shop::create([
-            'name' => $validatedData['name'],
-            'image_url' => Storage::url($imagePath),
-            'area' => $validatedData['area'],
-            'genre' => $validatedData['genre'],
-            'description' => $validatedData['description'],
-        ]);
+        Shop::create($validatedData);
 
-        // 登録完了メッセージを表示
+        // 登録完了メッセージを表示、店舗一覧画面へリダイレクト
         return redirect()->route('shops.index')->with('success', '店舗が登録されました。');
     }
 
+
+
+    // 店舗詳細表示
     public function show(Shop $shop)
     {
         return view('shops.show', compact('shop'));
     }
 
-
+    // 店舗編集フォーム表示
     public function edit(Shop $shop)
     {
         return view('shops.edit', compact('shop'));
     }
 
-    public function update(Request $request, Shop $shop)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'image_url' => 'required',
-            'area' => 'required',
-            'genre' => 'required',
-            'description' => 'nullable',
-        ]);
-
-        
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('public/shops');
-            $validatedData['image_url'] = Storage::url($imagePath);
-        }
-
-
-        $shop->update($validatedData);
-
-        return redirect()->route('shops.detail', $shop)->with('success', '店舗が更新されました。');
-    }
-
-    public function destroy(Shop $shop)
-    {
-        $shop->delete();
-
-        return redirect()->route('shops.index')->with('success', '店舗が削除されました。');
-    }
 }

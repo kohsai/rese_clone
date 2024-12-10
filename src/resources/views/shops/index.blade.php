@@ -21,6 +21,7 @@
     <h1 class="header-ttl">Rese</h1>
 
     <div class="header-nav">
+
       <div class="search-form-group">
         <select name="area">
           <option value="all">All area</option>
@@ -38,7 +39,34 @@
     </div>
 </header>
 
+
 <main class="main">
+
+@foreach ($shops as $shop)
+
+<div class="shop-item">
+
+  <div class="shop-image" style="background-image: url({{ $shop->image_url }})">
+  </div>
+
+  <div class="shop-info">
+    <h3>{{ $shop->name }}</h3>
+
+    <div class="shop-details">
+      <span>#{{ $shop->area }}</span>
+      <span>#{{ $shop->genre }}</span>
+    </div>
+
+    <form action="{{ route('shops.show', $shop) }}" method="POST">
+    @csrf
+    <input type="submit" value="詳しく見る" class="detail-button">
+    <div class="heart-container">
+    <i class="fa-solid fa-heart heart"></i>
+    </div>
+    </form>
+  </div>
+</div>
+    @endforeach
 
 
 </main>

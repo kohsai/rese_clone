@@ -12,46 +12,19 @@ services:
             - ./src:/var/www/
         depends_on:
             - php
-# 項目          値	             説明
-# image	   nginx:1.21.1	  nginx のバージョン 1.21.1 のイメージを指定
-# ports	     80:80	      ホスト(ローカル):コンテナの形式でポート番号 80 番を指定
-# volumes(1)	 省略	    ローカルで作成したdefault.confをコンテナにマウント
-# volumes(2)	 省略	    ローカルのsrcディレクトリをコンテナにマウント
-# depends_on	 php	   docker-compose 起動時にphpが実行された後に実行される
 
-# Nginx の設定は、default.confに設定内容を記述します。
-
-
-# PHPの　docker-compose.ymlの設定項目は以下になります。
     php:
         build: ./docker/php
         volumes:
             - ./src:/var/www/
-# 項目	       値           説明
-
-# build	   ./docker/php	    指定されたディレクトリにある Dockerfile を元にビルドします
-# volumes	   ./src:/var/www/	  コンテナ内の/var/www/に./srcをマウントします
-
-# PHP は、./docker/php以下に作成された Dockerfile を使って設定しています。
-
 
     mysql:
         image: mysql:8.0.26
         environment:
             MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: laravel_db
-            MYSQL_USER: laravel_user
-            MYSQL_PASSWORD: laravel_pass
-# docker-compose.ymlの設定項目environmentは重要なので確認しておきましょう。
-
-# 項目  	              値	      説明
-# MYSQL_ROOT_PASSWORD	 root	管理者パスワードの設定
-# MYSQL_DATABASE	  laravel_db	 データベースの初期設定
-# MYSQL_USER	    laravel_user	 一般ユーザの初期設定
-# MYSQL_PASSWORD	 laravel_pass	一般ユーザのパスワードの設定
-# docker/mysqlディレクトリ以下にある、volumesでマウントするためのmy.cnfも記述しておきます。
-
-# docker/mysqlディレクトリ以下にあるdataディレクトリは、必ず「カラ」にしておきましょう。 「カラ」にしておかないと、docker-compose 起動時にデータベースの作成に失敗する可能性があります。
+            DB_DATABASE: laravel_db
+            DB_USERNAME: laravel_user
+            DB_PASSWORD: laravel_pass
 
         command:
             mysqld --default-authentication-plugin=mysql_native_password
@@ -59,8 +32,6 @@ services:
             - ./docker/mysql/data:/var/lib/mysql
             - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
 
-
-# phpMyAdmin は、ブラウザからデータベースを操作をすることができるツールです。
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         environment:
@@ -72,12 +43,3 @@ services:
             - mysql
         ports:
             - 8080:80
-# docker-compose.ymlの設定項目は以下になります。
-
-# 項目	         値	             説明
-# image	phpmyadmin/phpmyadmin  phpMyAdmin のイメージを指定しています
-# environment	   省略        mysqlで作成するデータベースのユーザ名とパスワードを指定しています
-# depends_on	  mysql	    docker-compose 起動時にmysqlが実行された後に実行される
-# ports	       8080:80	    ホスト側で 8080番、コンテナ側で 80番のポート番号を指定している
-
-# ビルド後に、http://localhost:8080/からアクセスすることができるようになります。 データベースにテーブルを作成したタイミングで、確認してみましょう。

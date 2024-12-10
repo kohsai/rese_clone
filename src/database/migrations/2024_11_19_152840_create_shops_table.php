@@ -16,10 +16,10 @@ class CreateShopsTable extends Migration
         Schema::create('shops', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // 店舗名
-            $table->string('image_url'); // 店舗画像のパス
+            $table->string('image_url')->nullable(); // 店舗画像のパス
             $table->string('area'); // 店舗の地域
             $table->string('genre'); // 店舗のジャンル
-            $table->text('description')->nullable(); // 店舗の説明
+            $table->text('description');// 店舗の説明
             $table->timestamps();
         });
     }

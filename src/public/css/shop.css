@@ -35,10 +35,12 @@
     width: 100px;
 }
 
+/* ---------------------------------------- */
+
 .header-nav {
-    width: 50%;
-    margin-left: 30%;
-    margin-right: 15%;
+    width: 40%;
+    margin-left: 35%;
+    margin-right: 8%;
 }
 
 .magnifying {
@@ -88,72 +90,83 @@ select {
     width: 85%;
     height: auto;
     margin: 0 auto;
-    background-color: #214be0;
-    display: flex;
-    flex-wrap: wrap; /* パネルを折り返して表示 */
-    justify-content: center; /* 横方向の中央揃え */
-    align-items: center; /* 縦方向の中央揃え */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
 }
 
-.shoplist {
-  width: 25%; /* パネルの幅 */
-  height: auto; /* パネルの高さ */
-  margin: 10px; /* パネル間の余白 */
-  text-align: center; /* 画像を中央に配置 */
-  position: relative; /* 子要素を絶対配置するため必要 */
-  display: flex;
-  flex-direction: column;
+.shop-item {
+    max-width: 95%;
+    height: 300px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    /* flex: none; */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    order: -1;
 }
 
-.image {
-  width: 100%;
-  height: 50%; /* パネルの高さの半分 */
-  background-size: cover;
-  background-position: center;
-  flex: 1;
+.shop-image {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    width: 100%;
+    height: 50%;
+    background-size: cover;
+    background-position: center;
+    order: -1;
 }
 
-.info {
-  /* position: absolute; */
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.8); /* 半透明の背景 */
-  padding: 10px;
-  text-align: left;
-  flex: 1;
+.shop-info {
+    background-color: #fff;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    width: auto;
+    height: 50%;
+    padding: 0 20px;
+    position: relative;
 }
 
-.shop-name {
-  margin: 0;
+.shop-info h3 {
+    margin: auto;
+    padding-top: 15px;
 }
 
-.location, .genre {
+.shop-details {
     font-size: 14px;
-    display: inline-block;
-    margin-right: 10px;
+    width: 100%;
+    letter-spacing: -0.7px;
+    padding: 0 auto;
 }
 
-.detail-btn {
-    margin: 20px;
-    width: 90%;
-    height: 40px;
+
+.detail-button {
+    text-decoration: none;
+    color: #fff;
+    background-color: #214be0;
+    padding: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 15px 0;
+    width: 50%;
+    height: 35px;
     display: flex;
     justify-content: flex-start;
-}
-
-.detail-btn button {
-    background-color: #214be0;
-    width: 25%;
-    height: 40px;
-    font-size: 16px;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
     cursor: pointer;
 }
 
+.heart-container {
+    position: absolute;
+    top: 55%;
+    right: 10px; /* 右端に配置 */
+}
 
-.favorite-btn:hover i {
-  color: red; /* ハートの色 */
+.heart {
+     /* content: "\f004"; */
+    font-family: "Font Awesome 6 Free";
+    color: #ccc;
+    font-weight: 900;
+    font-size: 30px;
+    margin-left: 10px;
+    height: auto;
+
 }
