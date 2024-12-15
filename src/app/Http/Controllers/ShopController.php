@@ -42,22 +42,29 @@ public function index()
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $area = $request->input('area');
-        $genre = $request->input('genre');
+        $areaID = $request->input('area');
+        $genreID = $request->input('genre');
 
         // エリアとジャンルのデータを取得
         $areas = Area::all();
         $genres = Genre::all();
 
         // 店舗情報を検索
-        $shops = Shop::where('name', 'like', '%' . $query . '%')
-        ->when($area !== 'all', function ($query) use ($area) {
-            return $query->where('area', $area);
-        })
-            ->when($genre !== 'all', function ($query) use ($genre) {
-                return $query->where('genre', $genre);
-            })
-            ->get();
+        $shops = Shop::query();
+
+        if($query) {
+        $shops->where('name', 'like', '%' . $query . '%');
+        }
+
+        if ($areaID !== 'all') {
+        $shops->where('area_id', $areaID);
+        }
+
+        if($genreID !== 'all') {
+            $shops->where('genre_id', $genreID);
+        }
+
+        $shops = $shops->get();
 
         return view('shops.index', compact('shops', 'areas', 'genres'));
     }

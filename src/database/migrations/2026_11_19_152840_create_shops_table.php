@@ -17,10 +17,16 @@ class CreateShopsTable extends Migration
             $table->id();
             $table->string('name'); // 店舗名
             $table->string('image_url')->nullable(); // 店舗画像のパス
-            $table->string('area'); // 店舗の地域
-            $table->string('genre'); // 店舗のジャンル
+            $table->unsignedBigInteger('area_id')->nullable(); // 店舗の地域
+            $table->unsignedBigInteger('genre_id')->nullable(); // 店舗のジャンル
             $table->text('description');// 店舗の説明
             $table->timestamps();
+
+
+            // 外部キー制約
+            $table->foreign('area_id')->references('id')->on('areas');
+
+            $table->foreign('genre_id')->references('id')->on('genres');
         });
     }
 

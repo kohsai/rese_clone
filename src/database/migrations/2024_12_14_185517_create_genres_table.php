@@ -15,7 +15,7 @@ class CreateGenresTable extends Migration
     {
         Schema::create('genres', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // 店舗名
+            $table->string('genre_name'); // ジャンル名
             $table->timestamps();
         });
     }

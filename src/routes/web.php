@@ -45,7 +45,7 @@ Route::get('/done',
 
 
 
-Route::get('/search', [ShopController::class, 'search'])->name('shops.search');
+Route::get('/shops/search', [ShopController::class, 'search'])->name('shops.search');
 
 
 Route::post('/register', [RegisteredUserController::class, 'store'])->name('register');
