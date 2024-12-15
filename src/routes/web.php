@@ -45,12 +45,17 @@ Route::get('/done',
 
 
 
+Route::get('/search', [ShopController::class, 'search'])->name('shops.search');
+
+
 Route::post('/register', [RegisteredUserController::class, 'store'])->name('register');
 
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
 
-// Route::post('/shops', [ShopController::class, 'store'])->name('shops.store');
+Route::post('/shops/{shop}/toggle-favorite', [FavoriteController::class, 'toggle'])->name('shops.toggleFavorite');
+
+
 
 Route::resource('shops', ShopController::class);
 

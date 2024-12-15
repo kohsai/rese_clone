@@ -5,13 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-
 
 class shop extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
     protected $fillable = [
         'name',
@@ -20,4 +17,15 @@ class shop extends Model
         'genre',
         'description',
     ];
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function isFavoritedByUser($userId)
+    {
+        return $this->likes()->where('user_id', $userId)->exists();
+    }
+
 }

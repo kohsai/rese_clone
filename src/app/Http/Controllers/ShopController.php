@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ShopRequest;
-use App\Models\shop;
+use App\Models\Shop;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -38,6 +38,29 @@ public function index()
         return redirect()->route('shops.index')->with('success', '店舗が登録されました。');
     }
 
+    // 検索フォームの処理
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $area = $request->input('area');
+        $genre = $request->input('genre');
+
+        // エリアとジャンルのデータを取得
+        $areas = Area::all();
+        $genres = Genre::all();
+
+        // 店舗情報を検索
+        $shops = Shop::where('name', 'like', '%' . $query . '%')
+        ->when($area !== 'all', function ($query) use ($area) {
+            return $query->where('area', $area);
+        })
+            ->when($genre !== 'all', function ($query) use ($genre) {
+                return $query->where('genre', $genre);
+            })
+            ->get();
+
+        return view('shops.index', compact('shops', 'areas', 'genres'));
+    }
 
 
     // 店舗詳細表示

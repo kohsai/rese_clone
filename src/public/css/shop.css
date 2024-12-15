@@ -14,7 +14,7 @@
     justify-content: flex-start;
 }
 
-.icon {
+.horizontal {
     /* content: "\f682"; */
     font-family: "Font Awesome 6 Free";
     color: #214be0;
@@ -101,9 +101,7 @@ select {
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 8px;
-    /* flex: none; */
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    order: -1;
 }
 
 .shop-image {
@@ -113,7 +111,6 @@ select {
     height: 50%;
     background-size: cover;
     background-position: center;
-    order: -1;
 }
 
 .shop-info {
@@ -135,7 +132,6 @@ select {
     font-size: 14px;
     width: 100%;
     letter-spacing: -0.7px;
-    padding: 0 auto;
 }
 
 
@@ -144,9 +140,9 @@ select {
     color: #fff;
     background-color: #214be0;
     padding: auto;
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 5px;
-    margin: 15px 0;
+    margin: 25px 0;
     width: 50%;
     height: 35px;
     display: flex;
@@ -156,9 +152,10 @@ select {
 
 .heart-container {
     position: absolute;
-    top: 55%;
-    right: 10px; /* 右端に配置 */
+    top: 60%;
+    right: 20px;
 }
+
 
 .heart {
      /* content: "\f004"; */
@@ -166,7 +163,14 @@ select {
     color: #ccc;
     font-weight: 900;
     font-size: 30px;
-    margin-left: 10px;
-    height: auto;
+    cursor: pointer;
+    order: -1;
+}
 
+.heart-container input:checked + label .heart {
+    color: red
+}
+
+.hidden {
+    display: none;
 }
