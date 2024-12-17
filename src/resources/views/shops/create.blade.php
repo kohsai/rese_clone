@@ -59,12 +59,4 @@
 
 </form>
 
-{{-- セッションに success というキーでメッセージが保存されている場合に処理が実行されます。 --}}
-@if (session('success'))
-{{-- Bootstrapを利用した成功メッセージのアラートボックスです。 --}}
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
-
 @endsection

@@ -35,15 +35,15 @@ public function index()
         Shop::create($validatedData);
 
         // 登録完了メッセージを表示、店舗一覧画面へリダイレクト
-        return redirect()->route('shops.index')->with('success', '店舗が登録されました。');
+        return redirect()->route('shops.index');
     }
 
     // 検索フォームの処理
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $areaID = $request->input('area');
-        $genreID = $request->input('genre');
+        $area = $request->input('area');
+        $genre = $request->input('genre');
 
         // エリアとジャンルのデータを取得
         $areas = Area::all();
@@ -56,17 +56,17 @@ public function index()
         $shops->where('name', 'like', '%' . $query . '%');
         }
 
-        if ($areaID !== 'all') {
-        $shops->where('area_id', $areaID);
+        if ($area) {
+        $shops->where('area', 'like', '%' . $area . '%');
         }
 
-        if($genreID !== 'all') {
-            $shops->where('genre_id', $genreID);
+        if($genre) {
+            $shops->where('genre', 'like', '%' . $genre . '%');
         }
 
         $shops = $shops->get();
 
-        return view('shops.index', compact('shops', 'areas', 'genres'));
+        return view('shops.index', compact('shops'));
     }
 
 
