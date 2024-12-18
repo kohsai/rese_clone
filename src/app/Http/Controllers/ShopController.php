@@ -52,11 +52,7 @@ public function index()
         $area = $request->input('area');
         $genre = $request->input('genre');
 
-        // エリアとジャンルのデータを取得
-        $areas = Area::all();
-        $genres = Genre::all();
 
-        // 店舗情報を検索
         $shops = Shop::query();
 
         if($query) {
@@ -64,16 +60,16 @@ public function index()
         }
 
         if ($area) {
-        $shops->where('area', 'like', '%' . $area . '%');
+        $shops->where('area_id', $area);
         }
 
         if($genre) {
-            $shops->where('genre', 'like', '%' . $genre . '%');
+            $shops->where('genre_id', $genre);
         }
 
         $shops = $shops->get();
 
-        return view('shops.index', compact('shops'));
+        return response()->json($shops);
     }
 
 

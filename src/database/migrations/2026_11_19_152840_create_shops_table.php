@@ -24,8 +24,8 @@ class CreateShopsTable extends Migration
 
 
             // 外部キー制約
-            // $table->foreign('area_id')->references('id')->on('areas');
-            // $table->foreign('genre_id')->references('id')->on('genres');
+            $table->foreign('area_id')->references('id')->on('areas');
+            $table->foreign('genre_id')->references('id')->on('genres');
 
         });
     }

@@ -23,7 +23,7 @@
   <div class="header-nav">
 
     <form action="{{ route('shops.search') }}" method="get" id="search-form">
-
+      @csrf
       <div class="search-form-group">
 
         <select name="area">
@@ -42,6 +42,9 @@
 
         <i class="fa-solid fa-magnifying-glass magnifying"></i>
            <input type="text" id="search-query" name="query" placeholder="Search...">
+           <div class="search-button">
+            <input type="submit" value="検索">
+          </div>
       </div>
     </form>
   </div>
@@ -73,7 +76,7 @@
 
       <div class="heart-container">
         <input type="checkbox" id="heart-checkbox-{{ $shop->id }}" class="hidden" @if($shop->isFavoritedByUser(auth()->id())) checked @endif>
-      
+
         <label for="heart-checkbox-{{ $shop->id }}">
 
         <i class="fa-solid fa-heart heart @if($shop->isFavoritedByUser(auth()->id())) is-active @endif"
@@ -83,30 +86,52 @@
 
 
 <script>
-$(document).ready(function() {
-  $('#search-form').on('change', function(e) {
-    e.preventDefault();
+  const searchForm = document.getElementById('search-form');
 
-    var form = $(this);
-    var url = form.attr('action');
-    var data = form.serialize();
+// 検索ボタンをクリックしたときのイベントリスナーを追加
+searchForm.addEventListener('submit', (event) => {
+    event.preventDefault(); // フォームのデフォルト動作をキャンセル
 
-    $.ajax({
-      type: 'GET',
-      url: url,
-      data: data,
-      success: function(response) {
-        // 検索結果をメインコンテンツに表示
-        $('.main').html(response);
-      }
+    // フォームデータを取得
+    const formData = new FormData(searchForm);
+    const url = searchForm.action;
+
+    // サーバーにリクエストを送信
+    fetch(url, {
+        method: 'GET',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        // 検索結果を表示する部分のHTMLをクリア
+        const mainContent = document.querySelector('.main');
+        mainContent.innerHTML = '';
+
+        // 検索結果を動的に追加
+        data.forEach(shop => {
+            // 検索結果の表示処理（例）
+            const shopItem = document.createElement('div');
+            shopItem.classList.add('shop-item');
+            shopItem.innerHTML = `
+                <h3>${shop.name}</h3>
+                <div class="shop-details">
+                    <span>#${shop.area.name}</span>
+                    <span>#${shop.genre.name}</span>
+                </div>
+            `;
+            mainContent.appendChild(shopItem);
+        });
+    })
+    .catch(error => {
+        console.error('Error:', error);
     });
-  });
 });
 </script>
 
 
-<script>
 
+<script>
+// （お気に入り登録・解除の処理）
 function toggleFavorite(shopId) {
 
 const checkbox = document.getElementById(`heart-checkbox-${shopId}`);

@@ -44,7 +44,7 @@ Route::get('/done',
 [ReservationController::class, 'done'])->name('done');
 
 
-
+// 検索フォーム
 Route::get('/shops/search', [ShopController::class, 'search'])->name('shops.search');
 
 

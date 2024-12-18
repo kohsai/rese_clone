@@ -58,15 +58,14 @@ select {
 }
 
 .search-form-group {
-    display: flex;
+    height: 50px;
+    width: 85%;
     align-items: center;
     border: 1px solid #f2f2f2;
     border-radius: 5px;
     background-color: #fff;
-    padding: 8px;
-    position: relative;
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
 
@@ -80,9 +79,29 @@ select {
 
 .search-form-group input {
     padding: 10px;
+    width: 70px;
     border: none;
     outline: none;
     font-weight: bold;
+}
+
+
+.search-button {
+    width: 50%;
+    margin-left: 140px;
+    height: 45px;
+}
+
+.search-button input {
+    background-color: #214be0;
+    width: auto;
+    height: 45px;
+    font-size: 16px;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
 
 /*------------------------------------------------*/
