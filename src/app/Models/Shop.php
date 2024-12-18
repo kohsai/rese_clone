@@ -13,10 +13,23 @@ class shop extends Model
     protected $fillable = [
         'name',
         'image_url',
-        'area',
-        'genre',
+        'area_id',
+        'genre_id',
         'description',
     ];
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
+    }
+
+    public function genre()
+    {
+        return $this->belongsTo(Genre::class);
+    }
+
+
+
 
     public function likes()
     {

@@ -26,8 +26,8 @@ class ShopRequest extends FormRequest
         return [
             'image_url' => 'required|url|',
             'name' => 'required|string|max:191|unique:shops',
-            'area' => 'required|string',
-            'genre' => 'required|string',
+            'area_id' => 'required',
+            'genre_id' => 'required',
             'description' => 'required|string',
         ];
     }
@@ -39,8 +39,8 @@ class ShopRequest extends FormRequest
             'image_url.url' => '正しいURL形式で入力して下さい',
             'name.required' => '店舗名を入力してください',
             'name.max:191' => '191文字以下で入力してください',
-            'area.required' => '地域を入力してください',
-            'genre.required' => 'ジャンルを入力してください',
+            'area_id.required' => '地域を選択してください',
+            'genre_id.required' => 'ジャンルを選択してください',
             'description.required' => '詳細情報を入力してください'
         ];
     }

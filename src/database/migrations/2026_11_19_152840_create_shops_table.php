@@ -17,10 +17,15 @@ class CreateShopsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('image_url');
-            $table->string('area');
-            $table->string('genre');
+            $table->unsignedBigInteger('area_id');
+            $table->unsignedBigInteger('genre_id');
             $table->text('description');
             $table->timestamps();
+
+
+            // 外部キー制約
+            // $table->foreign('area_id')->references('id')->on('areas');
+            // $table->foreign('genre_id')->references('id')->on('genres');
 
         });
     }

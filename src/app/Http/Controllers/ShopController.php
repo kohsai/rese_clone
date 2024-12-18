@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ShopRequest;
+use App\Models\Area;
+use App\Models\Genre;
 use App\Models\Shop;
 
 use Illuminate\Http\Request;
@@ -21,7 +23,10 @@ public function index()
     // 店舗登録フォーム表示
     public function create()
     {
-        return view('shops.create');
+        $areas = Area::all();
+        $genres = Genre::all();
+
+        return view('shops.create', compact('areas', 'genres'));
     }
 
     // 店舗登録処理

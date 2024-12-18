@@ -61,8 +61,8 @@
         <h3>{{ $shop->name }}</h3>
 
         <div class="shop-details">
-        <span>#{{ $shop->area }}</span>
-        <span>#{{ $shop->genre }}</span>
+        <span>#{{ $shop->area->name }}</span>
+        <span>#{{ $shop->genre->name }}</span>
         </div>
 
         <form action="{{ route('shops.show', $shop) }}" method="POST">

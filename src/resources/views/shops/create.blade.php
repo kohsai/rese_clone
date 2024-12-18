@@ -28,27 +28,36 @@
 </div>
 
 
-  <div class="input-container">
-<i class="fa-solid fa-map-location map-location"></i>
-    <input type="text" placeholder="地域" name="area">
-
-    @error('area')
+<div class="input-container">
+    <i class="fa-solid fa-map-location map-location"></i>
+    <select name="area_id">
+        <option value="">地域を選択</option>
+        @foreach ($areas as $area)
+            <option value="{{ $area->id }}">{{ $area->name }}</option>
+        @endforeach
+    </select>
+    @error('area_id')
     <p>{{ $message }}</p>
     @enderror
-  </div>
+</div>
 
-  <div class="input-container">
+<div class="input-container">
     <i class="fa-solid fa-utensils utensils"></i>
-    <input type="text" placeholder="ジャンル" name="genre">
-    @error('genre')
+    <select name="genre_id">
+        <option value="">ジャンルを選択</option>
+        @foreach ($genres as $genre)
+            <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+        @endforeach
+    </select>
+    @error('genre_id')
     <p>{{ $message }}</p>
     @enderror
-  </div>
+</div>
 
 <div class="input-container">
 <i class="fa-solid fa-circle-info info" ></i>
-    <textarea name="description"></textarea>
-        @error('description')
+    <textarea name="description" placeholder="詳細情報を入力してください"></textarea>
+    @error('description')
     <p>{{ $message }}</p>
     @enderror
 </div>
