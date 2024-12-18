@@ -27,16 +27,16 @@
       <div class="search-form-group">
 
         <select name="area">
-          <option value="all">All area</option>
-            @foreach ($areas ?? [] as $area)
+          <option value="">All area</option>
+            @foreach ($areas as $area)
               <option value="{{ $area->id }}">{{ $area->name }}</option>
             @endforeach
         </select>
 
         <select name="genre">
-          <option value="all">All genre</option>
-            @foreach ($genres ?? [] as $genre)
-              <option value="{{ $genre->id }}">{{ $genre->name }}"</option>
+          <option value="">All genre</option>
+            @foreach ($genres as $genre)
+              <option value="{{ $genre->id }}">{{ $genre->name }}</option>
             @endforeach
         </select>
 

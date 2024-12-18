@@ -15,9 +15,11 @@ class ShopController extends Controller
     // 店舗一覧表示
 public function index()
     {
-        // Shop モデルの all() メソッドを使って、すべての店舗情報を取得し、shops 変数に格納しています。その後、shops.index ビューに shops 変数を渡しています。
         $shops = Shop::all();
-        return view('shops.index', compact('shops'));
+        $areas = Area::all();
+        $genres = Genre::all();
+
+        return view('shops.index', compact('shops', 'areas', 'genres'));
     }
 
     // 店舗登録フォーム表示
