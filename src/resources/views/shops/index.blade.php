@@ -22,7 +22,7 @@
 
   <div class="header-nav">
 
-    <form action="{{ route('shops.search') }}" method="get" id="search-form">
+    <form action="{{ route('shops.search') }}" method="get">
       @csrf
       <div class="search-form-group">
 
@@ -41,12 +41,19 @@
         </select>
 
         <i class="fa-solid fa-magnifying-glass magnifying"></i>
-           <input type="text" id="search-query" name="query" placeholder="Search...">
-           <div class="search-button">
+          <input type="text" name="keyword" placeholder="Search...">
+          <div class="search-button">
             <input type="submit" value="検索">
           </div>
       </div>
     </form>
+@if(isset($shops) && count($shops) > 0)
+  @foreach ($shops as $shop)
+    @endforeach
+@else
+  <p>検索条件に一致する店舗は見つかりませんでした。</p>
+@endif
+
   </div>
 </header>
 
@@ -82,51 +89,6 @@
         <i class="fa-solid fa-heart heart @if($shop->isFavoritedByUser(auth()->id())) is-active @endif"
         data-shop-id="{{ $shop->id }}"></i></label>
       </div>
-
-
-
-<script>
-  const searchForm = document.getElementById('search-form');
-
-// 検索ボタンをクリックしたときのイベントリスナーを追加
-searchForm.addEventListener('submit', (event) => {
-    event.preventDefault(); // フォームのデフォルト動作をキャンセル
-
-    // フォームデータを取得
-    const formData = new FormData(searchForm);
-    const url = searchForm.action;
-
-    // サーバーにリクエストを送信
-    fetch(url, {
-        method: 'GET',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        // 検索結果を表示する部分のHTMLをクリア
-        const mainContent = document.querySelector('.main');
-        mainContent.innerHTML = '';
-
-        // 検索結果を動的に追加
-        data.forEach(shop => {
-            // 検索結果の表示処理（例）
-            const shopItem = document.createElement('div');
-            shopItem.classList.add('shop-item');
-            shopItem.innerHTML = `
-                <h3>${shop.name}</h3>
-                <div class="shop-details">
-                    <span>#${shop.area.name}</span>
-                    <span>#${shop.genre.name}</span>
-                </div>
-            `;
-            mainContent.appendChild(shopItem);
-        });
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-});
-</script>
 
 
 

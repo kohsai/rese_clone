@@ -48,28 +48,35 @@ public function index()
     // 検索フォームの処理
     public function search(Request $request)
     {
-        $query = $request->input('query');
-        $area = $request->input('area');
-        $genre = $request->input('genre');
+        $keyword = $request->input('keyword');
+        $areaId = $request->input('area');
+        $genreId = $request->input('genre');
 
 
-        $shops = Shop::query();
+        $query = Shop::query();
+        $areas = Area::all();
+        $genres = Genre::all();
 
-        if($query) {
-        $shops->where('name', 'like', '%' . $query . '%');
+        if($keyword) {
+        $query->where('name', 'like', '%' . $keyword . '%');
         }
 
-        if ($area) {
-        $shops->where('area_id', $area);
+        if ($areaId) {
+        $query->where('area_id', $areaId);
         }
 
-        if($genre) {
-            $shops->where('genre_id', $genre);
+        if($genreId) {
+            $query->where('genre_id', $genreId);
         }
 
-        $shops = $shops->get();
+        $shops = $query->get();
 
-        return response()->json($shops);
+        // 検索結果が0件の場合の処理
+        if ($shops->isEmpty()) {
+            return response()->json(['message' => '検索結果が見つかりません'], 404);
+        }
+
+        return view('shops.index', compact('shops', 'areas', 'genres'));
     }
 
 
