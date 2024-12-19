@@ -73,7 +73,7 @@ public function index()
 
         // 検索結果が0件の場合の処理
         if ($shops->isEmpty()) {
-            return response()->json(['message' => '検索結果が見つかりません'], 404);
+            $shops = []; // 検索結果が空の場合、空の配列を代入
         }
 
         return view('shops.index', compact('shops', 'areas', 'genres'));
