@@ -51,6 +51,10 @@ Route::get('/shops/search', [ShopController::class, 'search'])->name('shops.sear
 Route::post('/register', [RegisteredUserController::class, 'store'])->name('register');
 
 
+// ログアウトルートを追加
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
 
 Route::post('/shops/{shop}/toggle-favorite', [FavoriteController::class, 'toggle'])->name('shops.toggleFavorite');

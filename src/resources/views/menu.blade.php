@@ -4,11 +4,14 @@
 {{-- @csrf --}}
 
 
-    <div class="user-menu">
+<div class="user-menu">
         <a href="/">Home</a>
-        <a href="/">Logout</a>
+    <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit">Logout</button>
+    </form>
         <a href="/mypage">Mypage</a>
-    </div>
+</div>
 
 
 

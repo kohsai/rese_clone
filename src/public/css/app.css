@@ -188,6 +188,41 @@
     text-decoration: none;
 }
 
+
+
+.user-menu {
+display: flex; /* Flexコンテナにする */
+flex-direction: column;
+align-items: center; /* 項目を垂直方向に中央揃え */
+}
+
+.user-menu a {
+
+display: block;
+font-size: 36px;
+color: #214be0;
+margin-bottom: 30px;
+text-align: center;
+text-decoration: none;
+}
+
+.user-menu form button {
+
+/* 他のリンクと同じスタイルを適用 */
+display: block;
+font-size: 36px;
+color: #214be0;
+margin-bottom: 30px;
+text-align: center;
+text-decoration: none;
+border: none; /* ボタンのデフォルトのボーダーを削除 */
+background: none; /* ボタンのデフォルトの背景色を削除 */
+cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+
+
+
 /* -------------------------------------------------*/
 
 .registration-title {
