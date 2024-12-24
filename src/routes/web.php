@@ -59,7 +59,7 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
 
-Route::post('/shops/{shop}/toggle-favorite', [FavoriteController::class, 'toggle'])->name('shops.toggleFavorite');
+Route::post('/shops/{shop}/toggle-favorite', [ShopController::class, 'toggleFavorite'])->name('toggle_favorite');
 
 
 

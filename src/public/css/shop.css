@@ -183,11 +183,10 @@ select {
     font-weight: 900;
     font-size: 30px;
     cursor: pointer;
-    order: -1;
 }
 
 .heart-container input:checked + label .heart {
-    color: red
+    color: red;
 }
 
 .hidden {

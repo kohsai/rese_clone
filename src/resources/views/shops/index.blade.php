@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/shop.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css">
-    <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
 
@@ -47,10 +46,7 @@
           </div>
       </div>
     </form>
-@if(isset($shops) && count($shops) > 0)
-  @foreach ($shops as $shop)
-    @endforeach
-@else
+@if (empty($shops))
   <p>検索条件に一致する店舗は見つかりませんでした。</p>
 @endif
 
@@ -62,12 +58,12 @@
 
   @foreach ($shops as $shop)
 
-    <div class="shop-item">
+  <div class="shop-item">
 
       <div class="shop-image" style="background-image: url({{ $shop->image_url }})">
       </div>
 
-      <div class="shop-info">
+    <div class="shop-info">
         <h3>{{ $shop->name }}</h3>
 
         <div class="shop-details">
@@ -82,52 +78,17 @@
 
 
       <div class="heart-container">
-        <input type="checkbox" id="heart-checkbox-{{ $shop->id }}" class="hidden" @if($shop->isFavoritedByUser(auth()->id())) checked @endif>
 
-        <label for="heart-checkbox-{{ $shop->id }}">
-
-        <i class="fa-solid fa-heart heart @if($shop->isFavoritedByUser(auth()->id())) is-active @endif"
-        data-shop-id="{{ $shop->id }}"></i></label>
+        <form action="{{ route('toggle_favorite', ['shop' => $shop->id]) }}" method="POST">
+          @csrf
+          <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+            <button type="submit">
+              <i class="fa-solid fa-heart heart @if($shop->isFavoritedByUser(auth()->id())) is-active @endif" data-shop-id="{{ $shop->id }}"></i>
+            </button>
+        </form>
       </div>
-
-
-
-<script>
-// （お気に入り登録・解除の処理）
-function toggleFavorite(shopId) {
-
-const checkbox = document.getElementById(`heart-checkbox-${shopId}`);
-checkbox.checked = !checkbox.checked;
-
-
-const heart = document.querySelector(`[data-shop-id="${shopId}"]`);
-
-heart.classList.toggle('is-active');
-
-// サーバーにリクエストを送信し、データベースを更新する処理
-fetch(`/shops/${shopId}/favorite`, {
-method: 'POST',
-headers: {
-'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
-}
-})
-.then(response => {
-
-// 成功時の処理
-
-})
-
-.catch(error => {
-
-// エラー時の処理
-
-});
-}
-
-</script>
-
+    </div>
   </div>
-</div>
     @endforeach
 
 
