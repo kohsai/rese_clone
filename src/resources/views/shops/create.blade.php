@@ -33,7 +33,7 @@
     <select name="area_id">
         <option value="">地域を選択</option>
         @foreach ($areas as $area)
-            <option value="{{ $area->id }}">{{ $area->name }}</option>
+            <option value="{{ $area->id }}">{{ $area->area_name }}</option>
         @endforeach
     </select>
     @error('area_id')
@@ -46,7 +46,7 @@
     <select name="genre_id">
         <option value="">ジャンルを選択</option>
         @foreach ($genres as $genre)
-            <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+            <option value="{{ $genre->id }}">{{ $genre->genre_name }}</option>
         @endforeach
     </select>
     @error('genre_id')

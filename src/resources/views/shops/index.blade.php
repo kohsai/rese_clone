@@ -29,14 +29,14 @@
         <select name="area">
           <option value="">All area</option>
             @foreach ($areas as $area)
-              <option value="{{ $area->id }}">{{ $area->name }}</option>
+              <option value="{{ $area->id }}">{{ $area->area_name }}</option>
             @endforeach
         </select>
 
         <select name="genre">
           <option value="">All genre</option>
             @foreach ($genres as $genre)
-              <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+              <option value="{{ $genre->id }}">{{ $genre->genre_name }}</option>
             @endforeach
         </select>
 
@@ -71,8 +71,8 @@
         <h3>{{ $shop->name }}</h3>
 
         <div class="shop-details">
-        <span>#{{ $shop->area->name }}</span>
-        <span>#{{ $shop->genre->name }}</span>
+        <span>#{{ $shop->area->area_name }}</span>
+        <span>#{{ $shop->genre->genre_name }}</span>
         </div>
 
         <form action="{{ route('shops.show', $shop) }}" method="POST">

@@ -9,5 +9,10 @@ class Genre extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['genre_name'];
+    protected $fillable = ['genre_name,'];
+
+    public function shops()
+    {
+        return $this->hasMany(Shop::class);
+    }
 }

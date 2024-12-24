@@ -21,6 +21,8 @@ Route::get('/shops.edit',
     [ShopController::class, 'edit']
 );
 
+Route::get('/shops/create', [ShopController::class, 'create'])->name('shops.create');
+
 
 Route::get('/register', [RegisteredUserController::class, 'register']);
 

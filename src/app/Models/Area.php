@@ -9,5 +9,10 @@ class Area extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['area_name'];
+    protected $fillable = ['area_name',];
+
+    public function shops()
+    {
+        return $this->hasMany(Shop::class);
+    }
 }
