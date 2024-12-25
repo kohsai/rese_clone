@@ -87,10 +87,7 @@
         <span>#{{ $shop->genre->genre_name }}</span>
         </div>
 
-        <form action="{{ route('shops.show', $shop) }}" method="POST">
-        @csrf
-        <input type="submit" value="詳しく見る" class="detail-button">
-        </form>
+        <a href="{{ route('shops.show', $shop) }}" class="detail-button">詳しく見る</a>
 
 
       <div class="heart-container">

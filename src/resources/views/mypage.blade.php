@@ -25,17 +25,42 @@
 
 <main class="main">
 
-    @if(Auth::check())
+@if(Auth::check())
     <div class="mypage-name">
-    <h2>{{ Auth::user()->name }}さん</h2> <!-- ユーザー名を表示 -->
+        <h2>{{ Auth::user()->name }}さん</h2> <!-- ユーザー名を表示 -->
     </div>
+
+<div class="mypage-container">
+
+    <h3>お気に入り店舗</h3>
+
+    <div class="favorites-container">
+            @if(!empty($favorites) && count($favorites) > 0)
+            @foreach ($favorites as $shop)
+        <div class="shop-item">
+            <div class="shop-image" style="background-image: url({{ $shop->image_url }});">
+            </div>
+            <div class="shop-info">
+            <h3>{{ $shop->name }}</h3>
+                <div class="shop-details">
+                <span>#{{ $shop->area->area_name }}</span>
+                <span>#{{ $shop->genre->genre_name }}</span>
+                </div>
+        <form action="{{ route('shops.show', $shop) }}" method="GET">
+            <button type="submit" class="detail-button">詳しく見る</button>
+        </form>
+            <div class="heart-container">
+                <i class="fa-solid fa-heart heart is-active"></i>
+            </div>
+        </div>
+    </div>
+        @endforeach
+    @else
+        <p>お気に入り店舗はありません。</p>
     @endif
-
-
-
-
-
-
+    </div>
+</div>
+@endif
 
 </main>
 </body>
