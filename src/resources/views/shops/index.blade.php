@@ -19,6 +19,14 @@
 
     <h1 class="header-ttl">Rese</h1>
 
+  <!-- ログインしているユーザー名を表示 -->
+  @if(Auth::check())
+    <div class="user-name">
+      <span>{{ Auth::user()->name }}さん</span> <!-- ユーザー名を表示 -->
+    </div>
+  @endif
+
+
   <div class="header-nav">
 
     <form action="{{ route('shops.search') }}" method="get">
@@ -57,9 +65,7 @@
 <main class="main">
 
   @foreach ($shops as $shop)
-
-  <div class="shop-item">
-
+    <div class="shop-item">
       <div class="shop-image" style="background-image: url({{ $shop->image_url }})">
       </div>
 
@@ -78,7 +84,6 @@
 
 
       <div class="heart-container">
-
         <form action="{{ route('shops.toggle-favorite', ['shop' => $shop->id]) }}" method="POST">
           @csrf
             <button type="submit">
@@ -88,9 +93,8 @@
       </div>
     </div>
   </div>
-    @endforeach
-
-
+@endforeach
 </main>
+
 </body>
 </html>
