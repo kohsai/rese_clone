@@ -79,7 +79,7 @@
 
       <div class="heart-container">
 
-        <form action="{{ route('toggle_favorite', ['shop' => $shop->id]) }}" method="POST">
+        <form action="{{ route('shops.toggle-favorite', ['shop' => $shop->id]) }}" method="POST">
           @csrf
           <input type="hidden" name="shop_id" value="{{ $shop->id }}">
             <button type="submit">

@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\FavoriteController;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Auth\Events\Authenticated;
 
@@ -59,8 +60,7 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
 
-Route::post('/shops/{shop}/toggle-favorite', [ShopController::class, 'toggleFavorite'])->name('toggle_favorite');
-
+Route::post('/shops/{shop}/toggle-favorite', [FavoriteController::class, 'toggle'])->name('shops.toggle-favorite');
 
 
 Route::resource('shops', ShopController::class);
