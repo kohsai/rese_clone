@@ -185,10 +185,14 @@ select {
     cursor: pointer;
 }
 
-.heart-container input:checked + label .heart {
+.heart.is-active {
     color: red;
 }
 
-.hidden {
-    display: none;
+.heart-container button {
+    border: none;
+    background: none;
+    padding: 0;
+    outline: none; /* デフォルトのアウトラインを削除 */
+    cursor: pointer; /* 押下可能なことを示すカーソル */
 }

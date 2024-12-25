@@ -81,9 +81,8 @@
 
         <form action="{{ route('shops.toggle-favorite', ['shop' => $shop->id]) }}" method="POST">
           @csrf
-          <input type="hidden" name="shop_id" value="{{ $shop->id }}">
             <button type="submit">
-              <i class="fa-solid fa-heart heart @if($shop->isFavoritedByUser(auth()->id())) is-active @endif" data-shop-id="{{ $shop->id }}"></i>
+              <i class="fa-solid fa-heart heart @if($shop->isFavoritedByUser(auth()->id())) is-active @endif"></i>
             </button>
         </form>
       </div>
