@@ -14,15 +14,25 @@
 <body class="container">
 
 <header class="header">
+  <!-- アイコンをクリックしたら遷移先を変える -->
+  <a href="{{ Auth::check() ? route('menu') : route('notloggedin') }}" class="icon-link">
   <span class="icon">
     <i class="fa-solid fa-square-poll-horizontal horizontal"></i></span>
+  </a>
 
-    <h1 class="header-ttl">Rese</h1>
+  <h1 class="header-ttl">Rese</h1>
 
   <!-- ログインしているユーザー名を表示 -->
   @if(Auth::check())
     <div class="user-name">
       <span>{{ Auth::user()->name }}さん</span> <!-- ユーザー名を表示 -->
+    </div>
+  @endif
+
+  <!-- メッセージの表示 -->
+  @if(session('message'))
+    <div class="alert alert-info" style="color: #f39c12; padding: 5px; border: 1px solid #f39c12;">
+        {{ session('message') }}
     </div>
   @endif
 
@@ -86,7 +96,8 @@
       <div class="heart-container">
         <form action="{{ route('shops.toggle-favorite', ['shop' => $shop->id]) }}" method="POST">
           @csrf
-            <button type="submit">
+            <!-- 未ログインの場合はボタンが無効になる -->
+            <button type="submit" @if(!Auth::check()) disabled @endif>
               <i class="fa-solid fa-heart heart @if($shop->isFavoritedByUser(auth()->id())) is-active @endif"></i>
             </button>
         </form>

@@ -6,15 +6,20 @@ use App\Http\Requests\ShopRequest;
 use App\Models\Area;
 use App\Models\Genre;
 use App\Models\Shop;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
     // 店舗一覧表示
 public function index()
     {
+        // 未ログインユーザーにメッセージを表示
+        if (!Auth::check()) {
+            session()->flash('message', 'お気に入り登録するには、タイトル横のアイコンを押下してください');
+        }
+
         $shops = Shop::all();
         $areas = Area::all();
         $genres = Genre::all();

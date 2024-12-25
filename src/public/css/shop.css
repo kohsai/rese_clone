@@ -43,6 +43,13 @@
     font-weight: bold;
 }
 
+
+.alert-info {
+    position: absolute;
+    left: 18%; /* 左端から */
+    top: 5%;   /* 上端から */
+}
+
 /* ---------------------------------------- */
 
 .header-nav {
