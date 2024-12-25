@@ -211,3 +211,14 @@ select {
     outline: none; /* デフォルトのアウトラインを削除 */
     cursor: pointer; /* 押下可能なことを示すカーソル */
 }
+
+/* ---------------------------------------------- */
+/* my-page */
+.mypage-name {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: auto;
+}
