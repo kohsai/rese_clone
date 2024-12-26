@@ -23,7 +23,7 @@
     <h1 class="header-ttl">Rese</h1>
 </header>
 
-<main class="main">
+<main class="mypage-main">
 
 @if(Auth::check())
     <div class="mypage-name">
@@ -32,20 +32,36 @@
 
 <div class="mypage-container">
 
-    <h3>お気に入り店舗</h3>
+<!-- 左側: 予約情報 -->
+        <div class="reservations">
+            <h3>予約状況</h3>
+            <div class="reservation-list">
+                <!-- 仮の予約情報 -->
+                <div class="reservation-item">
+                    <p>Shop: 仙人</p>
+                    <p>Date: 2021-04-01</p>
+                    <p>Time: 17:00</p>
+                    <p>Number: 1人</p>
+                </div>
+                <!-- 繰り返し分の予約情報 -->
+            </div>
+        </div>
 
-    <div class="favorites-container">
+        {{-- <右側: お気に入り店舗> --}}
+    <div class="favorites">
+        <h3>お気に入り店舗</h3>
+        <div class="favorites-container">
             @if(!empty($favorites) && count($favorites) > 0)
             @foreach ($favorites as $shop)
-        <div class="shop-item">
-            <div class="shop-image" style="background-image: url({{ $shop->image_url }});">
+            <div class="shop-item">
+                <div class="shop-image" style="background-image: url({{ $shop->image_url }});">
             </div>
             <div class="shop-info">
             <h3>{{ $shop->name }}</h3>
                 <div class="shop-details">
                 <span>#{{ $shop->area->area_name }}</span>
                 <span>#{{ $shop->genre->genre_name }}</span>
-                </div>
+            </div>
         <form action="{{ route('shops.show', $shop) }}" method="GET">
             <button type="submit" class="detail-button">詳しく見る</button>
         </form>
@@ -54,11 +70,12 @@
             </div>
         </div>
     </div>
-        @endforeach
+    @endforeach
     @else
         <p>お気に入り店舗はありません。</p>
     @endif
     </div>
+</div>
 </div>
 @endif
 

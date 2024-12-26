@@ -220,8 +220,16 @@ select {
 
 /* ---------------------------------------------- */
 /* my-page用のスタイル */
+
+.mypage-main {
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    grid-gap: 20px;
+}
+
 .mypage-name {
-    position: absolute;
+    position: relative;
     top: 15%;
     left: 50%;
     transform: translateX(-50%);
@@ -229,11 +237,45 @@ select {
     width: auto;
 }
 
-
+/* 全体のレイアウトをフレックスボックスで設定 */
 .mypage-container {
-    margin-top: 80px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    background-color:seashell;
+}
+
+/* 左側: 予約情報 */
+.reservations {
+    margin-left: 10%;
+    flex: 1; /* 左側は固定幅 */
+    max-width: 65%;
+}
+
+.reservation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 各予約の間隔 */
+}
+
+.reservation-item {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 8px;
+    padding: 25px;
+    min-height: 150px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* 右側: お気に入り店舗 */
+.favorites {
+    margin-left: -7%;
+    text-align: left;
+    flex: 3; /* 右側は幅を広めに設定 */
 }
 
 .favorites-container {
-
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2列に並べる */
+    gap: 40px; /* パネル間の間隔 */
 }
+
