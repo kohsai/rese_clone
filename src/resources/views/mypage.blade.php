@@ -13,80 +13,96 @@
 
 <body class="container">
 
-<header class="header">
-<!-- アイコンをクリックしたら遷移先を変える -->
-    <a href="{{ Auth::check() ? route('menu') : route('notloggedin') }}" class="icon-link">
-        <span class="icon">
-        <i class="fa-solid fa-square-poll-horizontal horizontal"></i></span>
-    </a>
+    <header class="header">
+        <!-- アイコンをクリックしたら遷移先を変える -->
+        <a href="{{ Auth::check() ? route('menu') : route('notloggedin') }}" class="icon-link">
+            <span class="icon">
+                <i class="fa-solid fa-square-poll-horizontal horizontal"></i></span>
+        </a>
 
-    <h1 class="header-ttl">Rese</h1>
-</header>
+        <h1 class="header-ttl">Rese</h1>
+    </header>
 
-<main class="mypage-main">
+    <main class="mypage-main">
 
-@if(Auth::check())
-    <div class="mypage-name">
-        <h2>{{ Auth::user()->name }}さん</h2> <!-- ユーザー名を表示 -->
-    </div>
+        @if (Auth::check())
+            <div class="mypage-name">
+                <h2>{{ Auth::user()->name }}さん</h2> <!-- ユーザー名を表示 -->
+            </div>
 
-<div class="mypage-container">
+        <div class="mypage-container">
 
-<!-- 左側: 予約情報 -->
+        <!-- 左側: 予約情報 -->
         <div class="reservations">
             <h3>予約状況</h3>
-            <div class="reservation-list">
-                <!-- 仮の予約情報 -->
-                <div class="reservation-item">
-                    <p>Shop: 仙人</p>
-                    <p>Date: 2021-04-01</p>
-                    <p>Time: 17:00</p>
-                    <p>Number: 1人</p>
-                </div>
+                <div class="reservation-list">
+                    <!-- 仮の予約情報 -->
+                    <div class="reservation-item">
+                        <div class="reservation-header">
+                        <i class="fa-solid fa-clock"></i>
+                        <span class="reservation-number">予約1</span> <!-- 予約番号 -->
+                        </div>
+                        <div class="reservation-details">
+                        <p>Shop: 仙人</p>
+                        <p>Date: 2021-04-01</p>
+                        <p>Time: 17:00</p>
+                        <p>Number: 1人</p>
+                        </div>
+                    </div>
                 <!-- 繰り返し分の予約情報 -->
-            </div>
+                </div>
         </div>
 
         {{-- <右側: お気に入り店舗> --}}
-    <div class="favorites">
-        <h3>お気に入り店舗</h3>
-        <div class="favorites-container">
-            @if(!empty($favorites) && count($favorites) > 0)
-            @foreach ($favorites as $shop)
-            <div class="shop-item">
-                <div class="shop-image" style="background-image: url({{ $shop->image_url }});">
+        <div class="favorites">
+            <h3>お気に入り店舗</h3>
+                <div class="favorites-container">
+                @if (!empty($favorites) && count($favorites) > 0)
+                @foreach ($favorites as $shop)
+                    <div class="shop-item">
+                        <div class="shop-image" style="background-image: url({{ $shop->image_url }});">
+                    </div>
+                        <div class="shop-info">
+                            <h3>{{ $shop->name }}</h3>
+                                <div class="shop-details">
+                                    <span>#{{ $shop->area->area_name }}</span>
+                                    <span>#{{ $shop->genre->genre_name }}</span>
+                                </div>
+                                <form action="{{ route('shops.show', $shop) }}" method="GET">
+                                <button type="submit" class="detail-button">詳しく見る</button>
+                                </form>
+                                    <div class="heart-container">
+                                    <i class="fa-solid fa-heart heart is-active"></i>
+                                    </div>
+                                </div>
+                </div>
+                @endforeach
+                    @else
+                    <p>お気に入り店舗はありません。</p>
+                    @endif
+                    </div>
+                </div>
             </div>
-            <div class="shop-info">
-            <h3>{{ $shop->name }}</h3>
-                <div class="shop-details">
-                <span>#{{ $shop->area->area_name }}</span>
-                <span>#{{ $shop->genre->genre_name }}</span>
-            </div>
-        <form action="{{ route('shops.show', $shop) }}" method="GET">
-            <button type="submit" class="detail-button">詳しく見る</button>
-        </form>
-            <div class="heart-container">
-                <i class="fa-solid fa-heart heart is-active"></i>
-            </div>
-        </div>
-    </div>
-    @endforeach
-    @else
-        <p>お気に入り店舗はありません。</p>
-    @endif
-    </div>
-</div>
-</div>
-@endif
+        @endif
 
-</main>
+    </main>
 </body>
+
 </html>
 
-
-
-
-
-
-
-
+{{-- 
+@foreach ($reservations as $reservation)
+  <div class="reservation-item">
+    <div class="reservation-header">
+      <i class="fa-solid fa-clock"></i>
+      <span class="reservation-number">予約{{ $reservation->id }}</span>
+      <button class="delete-button" onclick="deleteReservation({{ $reservation->id }})">×</button>
+    </div>
+    <div class="reservation-details">
+      <p>Shop: {{ $reservation->shop->name }}</p>
+      <p>Date: {{ $reservation->date }}</p>
+      <p>Time: {{ $reservation->time }}</p>
+      <p>Number: {{ $reservation->number }}人</p>
+    </div>
+  </div>
+@endforeach --}}
