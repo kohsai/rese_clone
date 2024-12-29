@@ -422,9 +422,9 @@ select {
     background-color:darkgreen;
     color: white;
     text-decoration: none; /* デフォルトのリンクの下線を消す */
-    border-radius: 5px; /* 角を丸くする */
-    font-size: 16px; /* フォントサイズ */
-    cursor: pointer; /* ポインターカーソルを表示 */
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 
