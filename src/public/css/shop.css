@@ -1,6 +1,6 @@
 .container {
     background-color: #f2f2f2;
-    height: 100vh;
+    height: 90vh;
     width: 100vw;
 }
 
@@ -354,7 +354,7 @@ select {
     flex: 1;
     background-color: #007bff;
     color: #fff;
-    padding: 20px;
+    padding: 20px 20px 60px 20px;
     border-radius: 10px;
     position: relative;
     height: auto;
@@ -428,8 +428,17 @@ select {
 }
 
 
+.reserve-button:disabled {
+    background-color: #214be0;
+    cursor: not-allowed;
+}
 
-.btn btn-primary {
+.reserve-button:enabled {
+    background-color:#214be0;
+    cursor: pointer;
+}
+
+.reserve-button {
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -442,11 +451,4 @@ select {
     padding: 10px;
     font-size: 16px;
     cursor: not-allowed; /* 初期状態でカーソルを×印に設定 */
-}
-
-/* 入力が完了して予約ボタンを押せる状態にした場合 */
-input:valid, select:valid {
-    #reserve-button {
-        cursor: pointer; /* 入力が有効な場合はカーソルをポインタに変更 */
-    }
 }

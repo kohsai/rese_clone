@@ -48,8 +48,16 @@ class ReservationController extends Controller
 
     public function show($id)
     {
-        // ショップ情報を取得し、リレーションもロード
+        // ショップ情報を取得
         $shop = Shop::with(['area', 'genre'])->findOrFail($id);
+
+        // デバッグ用ログ
+        \Log::info('Session Data:', [
+            'confirmationData' => Session::get('confirmationData'),
+            'confirmationFlag' => Session::get('confirmationFlag'),
+        ]);
+
+
 
         // セッションから確認データを取得
         $confirmationData = Session::get('confirmationData', [
@@ -57,15 +65,12 @@ class ReservationController extends Controller
             'time' => '',
             'number' => '',
         ]);
+        // confirmationFlagがセッションに保存されているか確認
         $confirmationFlag = Session::get('confirmationFlag', false);
 
 
-        // ビューにデータを渡す
-        return view('shops.show', [
-            'shop' => $shop,
-            'confirmationData' => $confirmationData,
-            'confirmationFlag' => $confirmationFlag,
-        ]);
+        // セッションの確認データとフラグをビューに渡す
+        return view('shops.show', compact('shop', 'confirmationData', 'confirmationFlag'));
     }
 
 
@@ -74,7 +79,7 @@ class ReservationController extends Controller
     public function confirm(Request $request)
     {
 
-        // 入力値を取得
+        // バリデーション
         $validatedData = $request->validate([
             'shop_id' => 'required|exists:shops,id',
             'date' => 'required|date',
@@ -82,24 +87,24 @@ class ReservationController extends Controller
             'number' => 'required|integer|min:1|max:20',
         ]);
 
+        try {
+            $shop = Shop::findOrFail($validatedData['shop_id']);
 
-         // 確認データをセッションに保存
             $confirmationData = [
                 'date' => $validatedData['date'],
                 'time' => $validatedData['time'],
                 'number' => $validatedData['number'],
+                'shop_name' => $shop->name,
             ];
 
-        // ショップ情報取得
-        $shop = Shop::findOrFail($validatedData['shop_id']);
-        $confirmationData['shop_name'] = $shop->name;
+            Session::put('confirmationData', $confirmationData);
+            Session::put('confirmationFlag', true);
 
-        Session::put('confirmationData', $confirmationData);
-        Session::put('confirmationFlag', true);
-
-
-        // リダイレクト先で確認データを表示できるようにする
-        return redirect()->route('shops.show', ['shop' => $validatedData['shop_id']]);
+            return redirect()->route('shops.show', ['shop' => $validatedData['shop_id']]);
+        } catch (\Exception $e) {
+            \Log::error('Error in confirm method:', ['error' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['error' => '予約の確認に失敗しました。もう一度お試しください。']);
+        }
     }
 
     //  選びなおすボタン

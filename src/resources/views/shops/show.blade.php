@@ -95,7 +95,7 @@
             @endphp
 
         <div class="confirmation-data">
-          <p>店舗名: {{ $confirmationData['shop_name'] }}</p> <!-- 店舗名の表示 -->
+          <p>店舗名: {{ $confirmationData['shop_name'] }}</p>
           <p>日付: {{ \Carbon\Carbon::parse(session('confirmationData')['date'])->format('Y年m月d日') }}</p>
           <p>時間: {{ $confirmationData['time'] }}</p>
           <p>人数: {{ $confirmationData['number'] }}</p>
@@ -104,11 +104,8 @@
 
 
         {{-- 予約ボタン --}}
-      @if ($confirmationFlag ?? false)
-          <button class="btn btn-primary">予約する</button>
-      @else
-          <button class="btn btn-primary" disabled>予約する</button>
-      @endif
+          <button type="submit" class="reserve-button" {{ !session('confirmationData') ? 'disabled' : '' }}>予約する
+          </button>
 
 
     </div>
