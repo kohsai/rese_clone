@@ -22,8 +22,14 @@
 <main class="show-main">
   {{-- 左側：店舗情報 --}}
   <div class="show-shop-info">
+    <div class="shop-name-group">
+    <a href="{{ route('shops.index') }}" class="back-to-shops">
+      <i class="fa-solid fa-angle-left"></i>
+    </a>
+
             <h2 class="shop-name">{{ $shop->name }}</h2>
 
+    </div>
             <img src="{{ $shop->image_url }}" alt="{{ $shop->name }}" class="show-shop-image">
 
             <p class="shop-tags">#{{ $shop->area->area_name }} #{{ $shop->genre->genre_name }}</p>

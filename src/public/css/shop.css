@@ -28,6 +28,7 @@
     /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 影の設定   ←- 擬似要素の影響？でうまく表示されず保留。*/
 }
 
+
 .header-ttl {
     color: #214be0;
     font-size: 36px;
@@ -330,11 +331,39 @@ select {
     flex: 1;
 }
 
+.shop-name-group {
+    display: flex;
+    align-items: center;
+}
+
+/* アイコンを囲む正方形 */
+.back-to-shops {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color:#fff;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 24px; /* アイコンのサイズ調整 */
+    text-decoration: none; /* 下線を削除 */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 影を追加 */
+}
+
 /* 店舗名 */
 .shop-name h2 {
     font-weight: bold;
     font-size: 30px;
 }
+
+.back-to-shops i {
+    font-size: 20px;
+    color: black;
+}
+
+
+
 /* 店舗画像 */
 .show-shop-image {
     width: 100%;
