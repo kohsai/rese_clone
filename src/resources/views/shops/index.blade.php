@@ -87,7 +87,8 @@
         <span>#{{ $shop->genre->genre_name }}</span>
         </div>
 
-        <a href="{{ route('shops.show', $shop) }}" class="detail-button">詳しく見る</a>
+    <a href="{{ Auth::check() ? route('shops.show', $shop) : '#' }}" class="detail-button @if(!Auth::check()) disabled @endif" @if(!Auth::check()) onclick="return false;" @endif>詳しく見る
+    </a>
 
 
       <div class="heart-container">
