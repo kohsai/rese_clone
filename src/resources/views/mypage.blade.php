@@ -12,13 +12,9 @@
 
 
 <body class="container">
-
     <header class="header">
-        <!-- アイコンをクリックしたら遷移先を変える -->
-        <a href="{{ Auth::check() ? route('menu') : route('notloggedin') }}" class="icon-link">
-            <span class="icon">
-                <i class="fa-solid fa-square-poll-horizontal horizontal"></i></span>
-        </a>
+    <span class="icon">
+        <i class="fa-solid fa-square-poll-horizontal horizontal"></i></span>
 
         <h1 class="header-ttl">Rese</h1>
     </header>

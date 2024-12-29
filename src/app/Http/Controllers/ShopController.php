@@ -17,7 +17,7 @@ public function index()
     {
         // 未ログインユーザーにメッセージを表示
         if (!Auth::check()) {
-            session()->flash('message', 'お気に入り登録するには、タイトル横のアイコンを押下してください');
+            session()->flash('message', 'タイトル横のアイコンを押下し、ログインしてください');
         }
 
         $shops = Shop::all();

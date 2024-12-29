@@ -13,14 +13,13 @@ use Illuminate\Auth\Events\Authenticated;
 Route::get('/',
 [ShopController::class, 'index']);
 
-Route::get('/shops.show',
-[ShopController::class, 'show']);
+Route::get('/shops/show',
+[ShopController::class, 'show'])->name('shops.show');
 
 Route::post('/shops/{shop}', [ShopController::class, 'show'])->name('shops.show');
 
-Route::get('/shops.edit',
-    [ShopController::class, 'edit']
-);
+Route::get('/shops/edit', [ShopController::class, 'edit']
+)->name('shops.edit');
 
 Route::get('/shops/create', [ShopController::class, 'create'])->name('shops.create');
 
@@ -59,6 +58,21 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name
 
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
+
+
+Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
+
+Route::get('/reservations/done', [ReservationController::class, 'done'])->name('reservation.done');
+
+
+Route::post('/reservations/confirm', [ReservationController::class, 'confirm'])->name('reservations.confirm');
+
+Route::post('/reservations/store', [ReservationController::class, 'store'])->name('reservations.store');
+
+
+
+
+
 
 Route::post('/shops/{shop}/toggle-favorite', [FavoriteController::class, 'toggle'])->name('shops.toggle-favorite');
 
