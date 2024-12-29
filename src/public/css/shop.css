@@ -74,7 +74,7 @@ select {
 
 .search-form-group {
     height: 50px;
-    width: 70%;
+    width: 75%;
     align-items: center;
     border: 1px solid #f2f2f2;
     border-radius: 5px;
@@ -103,7 +103,7 @@ select {
 
 .search-button {
     width: 50%;
-    margin-left: 10%;
+    margin-left: 20%;
     height: 45px;
 }
 
