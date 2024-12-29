@@ -46,7 +46,7 @@
 
 .alert-info {
     position: absolute;
-    left: 18%; /* 左端から */
+    left: 20%; /* 左端から */
     top: 5%;   /* 上端から */
 }
 
@@ -386,20 +386,26 @@ select {
 }
 
 /* 予約情報表示 */
-.confirmation-section {
+.confirmation-data {
     margin-top: 20px;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.2);
     color: white;
     border-radius: 10px;
     height: auto;
+    order: -1;
+}
+
+.confirmation-data p {
+    margin: 5px 0;
+    font-size: 14px;
 }
 
 /* 確認するボタン */
 .show-confirm-button {
     cursor: pointer;
     border: 2px solid #ccc;
-    background-color: #0056f7;
+    background-color:#214be0;
     color: white;
     border-radius: 5px;
     padding: 8px 16px;
@@ -407,6 +413,21 @@ select {
     width: auto;
     text-align: center;
 }
+
+.select-again-button {
+    position: absolute;
+    right: 7%; /* 右端に配置 */
+    padding: 8px 16px;
+    border: 2px solid #ccc;
+    background-color:darkgreen;
+    color: white;
+    text-decoration: none; /* デフォルトのリンクの下線を消す */
+    border-radius: 5px; /* 角を丸くする */
+    font-size: 16px; /* フォントサイズ */
+    cursor: pointer; /* ポインターカーソルを表示 */
+}
+
+
 
 .btn btn-primary {
     position: absolute;

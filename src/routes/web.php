@@ -60,6 +60,7 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
 
 
+
 Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
 
 Route::get('/reservations/done', [ReservationController::class, 'done'])->name('reservation.done');
@@ -69,6 +70,7 @@ Route::post('/reservations/confirm', [ReservationController::class, 'confirm'])-
 
 Route::post('/reservations/store', [ReservationController::class, 'store'])->name('reservations.store');
 
+Route::get('/shops/{shop}/reset', [ReservationController::class, 'resetForm'])->name('reservations.reset');
 
 
 

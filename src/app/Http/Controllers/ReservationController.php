@@ -63,39 +63,56 @@ class ReservationController extends Controller
         // ビューにデータを渡す
         return view('shops.show', [
             'shop' => $shop,
-            'confirmationData' => $confirmationData ?? [], // 必要に応じて空の配列をデフォルトに設定
+            'confirmationData' => $confirmationData,
+            'confirmationFlag' => $confirmationFlag,
         ]);
     }
+
+
 
     // 確認ボタンの処理
     public function confirm(Request $request)
     {
+
         // 入力値を取得
         $validatedData = $request->validate([
             'shop_id' => 'required|exists:shops,id',
             'date' => 'required|date',
             'time' => 'required',
-            'number' => 'required|integer|min:1|max:10',
+            'number' => 'required|integer|min:1|max:20',
         ]);
 
-        // 日付と時間のフォーマット
-            $formattedDate = Carbon::parse($validatedData['date'])->format('Y年m月d日');
-            $formattedTime = $validatedData['time'];
 
          // 確認データをセッションに保存
             $confirmationData = [
-                'date' => $formattedDate,
-                'time' => $formattedTime,
+                'date' => $validatedData['date'],
+                'time' => $validatedData['time'],
                 'number' => $validatedData['number'],
             ];
-        Session::put('confirmationData', $confirmationData);
-        Session::put('confirmationFlag', true);
 
         // ショップ情報取得
         $shop = Shop::findOrFail($validatedData['shop_id']);
+        $confirmationData['shop_name'] = $shop->name;
 
-        // ビューにデータを渡す
-        return redirect()->route('shops.show', $validatedData['shop_id']);
+        Session::put('confirmationData', $confirmationData);
+        Session::put('confirmationFlag', true);
 
+
+        // リダイレクト先で確認データを表示できるようにする
+        return redirect()->route('shops.show', ['shop' => $validatedData['shop_id']]);
     }
+
+    //  選びなおすボタン
+    public function resetForm($shopId)
+    {
+        // セッションから確認データを削除
+        Session::forget('confirmationData');
+        Session::forget('confirmationFlag');
+
+        // 「選びなおす」ボタンが押された後、予約ページにリダイレクト
+        return redirect()->route('shops.show', ['shop' => $shopId]);
+    }
+
+
+
 }
