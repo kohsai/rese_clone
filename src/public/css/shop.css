@@ -323,7 +323,7 @@ select {
     grid-gap: 8%;
 }
 
-/* --------------------------- */
+/* -------------------- */
 /* 左側：店舗情報 */
 
 .show-shop-info {
@@ -422,6 +422,8 @@ select {
     font-size: 16px;
     width: auto;
     text-align: center;
+    position: relative;
+    left: 11%;
 }
 
 .select-again-button {
