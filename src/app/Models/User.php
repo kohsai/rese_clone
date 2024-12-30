@@ -44,10 +44,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // ユーザーのお気に入り店舗とのリレーション
     public function favorites()
     {
         return $this->belongsToMany(Shop::class, 'likes', 'user_id', 'shop_id');
     }
 
+    // ユーザーが行った予約とのリレーション
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
 
 }

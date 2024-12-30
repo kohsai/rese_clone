@@ -32,22 +32,27 @@
         <div class="reservations">
             <h3>予約状況</h3>
                 <div class="reservation-list">
-                    <!-- 仮の予約情報 -->
-                    <div class="reservation-item">
-                        <div class="reservation-header">
-                        <i class="fa-solid fa-clock"></i>
-                        <span class="reservation-number">予約1</span> <!-- 予約番号 -->
+                    <!-- 予約情報をループで表示 -->
+                    @foreach ($reservations as $index => $reservation)
+                        <div class="reservation-item">
+                            <div class="reservation-header">
+                                <i class="fa-solid fa-clock"></i>
+                                <span class="reservation-number">予約{{ $index + 1 }}</span> <!-- 何番目の予約か表示 -->
+                            </div>
+
+                            <div class="reservation-details">
+                                <p>店舗名: {{ $reservation->shop->name }}</p> <!-- 店舗名 -->
+
+                                <p>予約日: {{ \Carbon\Carbon::parse($reservation->start_at)->format('Y-m-d') }}</p> <!-- 予約日 -->
+
+                                <p>時間: {{ \Carbon\Carbon::parse($reservation->start_at)->format('H:i') }}</p> <!-- 予約時間 -->
+
+                                <p>人数: {{ $reservation->num_of_users }}人</p> <!-- 予約人数 -->
+                            </div>
                         </div>
-                        <div class="reservation-details">
-                        <p>Shop: 仙人</p>
-                        <p>Date: 2021-04-01</p>
-                        <p>Time: 17:00</p>
-                        <p>Number: 1人</p>
-                        </div>
-                    </div>
-                <!-- 繰り返し分の予約情報 -->
+                    @endforeach
                 </div>
-        </div>
+            </div>
 
         {{-- <右側: お気に入り店舗> --}}
         <div class="favorites">

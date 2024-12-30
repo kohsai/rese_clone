@@ -15,9 +15,14 @@ class UserController extends Controller
         // ユーザーのお気に入り店舗を取得
         $favorites = $user ? $user->favorites : []; // 必要に応じてリレーション設定を確認
 
+        // ユーザーの予約情報を取得
+        $reservations = $user ? $user->reservations : [];
+
+
         // ビューにデータを渡す
         return view('mypage', [
             'favorites' => $favorites,
+            'reservations' => $reservations, // 予約情報もビューに渡す
         ]);
     }
 }
