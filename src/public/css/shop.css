@@ -36,7 +36,7 @@
     width: 100px;
 }
 /* -------------------------------------------- */
-
+/* メイン画面にアクセスしているユーザー*/
 .user-name {
     font-size: 16px;
     color: #214be0;
@@ -44,23 +44,23 @@
     font-weight: bold;
 }
 
-
+/* 未ログインユーザーへのメッセージ */
 .alert-info {
     position: absolute;
     left: 20%; /* 左端から */
     top: 5%;   /* 上端から */
 }
 
-/* ---------------------------------------- */
-
+/* メイン画面の検索フォーム + 検索ボタン */
 .header-nav {
     width: 40%;
     margin-left: 35%;
     margin-right: 8%;
 }
 
+/* 検索フォームの矢印  */
 .magnifying {
-     /* content: "\f682"; */
+    /* content: "\f682"; */
     font-family: "Font Awesome 6 Free";
     color: #f2f2f2;
     font-weight: 900;
@@ -73,6 +73,7 @@ select {
     border: none;
 }
 
+/* 検索フォーム  */
 .search-form-group {
     height: 50px;
     width: 70%;
@@ -101,7 +102,7 @@ select {
     font-weight: bold;
 }
 
-
+/* 検索ボタン  */
 .search-button {
     width: 50%;
     margin-left: 10%;
@@ -130,6 +131,7 @@ select {
     grid-gap: 20px;
 }
 
+/* 店舗パネル  */
 .shop-item {
     max-width: 100%;
     height: 300px;
@@ -139,6 +141,7 @@ select {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+/* パネル 上半分の画像 */
 .shop-image {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -148,6 +151,7 @@ select {
     background-position: top center;
 }
 
+/* パネル 下半分の店舗情報 */
 .shop-info {
     background-color: #fff;
     border-bottom-left-radius: 8px;
@@ -173,7 +177,7 @@ select {
 
 }
 
-
+/* 詳しく見るボタン */
 .detail-button {
     display: inline-block;
     text-decoration: none;
@@ -191,14 +195,14 @@ select {
     font-size: 14px;
 }
 
-
+/* ハートマーク周り */
 .heart-container {
     position: absolute;
     top: 60%;
     right: 20px;
 }
 
-
+/* ハートマーク */
 .heart {
      /* content: "\f004"; */
     font-family: "Font Awesome 6 Free";
@@ -208,6 +212,7 @@ select {
     cursor: pointer;
 }
 
+/* ハートマークを押下した時 */
 .heart.is-active {
     color: red;
 }
@@ -220,7 +225,7 @@ select {
     cursor: pointer; /* 押下可能なことを示すカーソル */
 }
 
-
+/* 未ログインユーザーの押下を防止 */
 .detail-button.disabled {
     background-color: #ccc; /* グレーで無効感を出す */
     color: #fff;
@@ -228,9 +233,8 @@ select {
 }
 
 
-
 /* ---------------------------------------------- */
-/* mypage用のスタイル */
+/* マイページ用のスタイル */
 
 .mypage-main {
     width: 90%;
@@ -239,6 +243,7 @@ select {
     grid-gap: 20px;
 }
 
+/* マイページにアクセスしているユーザー名 */
 .mypage-name {
     position: relative;
     top: 15%;
@@ -261,12 +266,14 @@ select {
     max-width: 65%;
 }
 
+/* 予約状況のリスト */
 .reservation-list {
     display: flex;
     flex-direction: column;
     gap: 15px; /* 各予約の間隔 */
 }
 
+/* 予約状況のパネル */
 .reservation-item {
     background-color: #007bff;
     color: #fff;
@@ -276,26 +283,46 @@ select {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
+/* パネルのヘッダー部分 */
 .reservation-header {
   margin-bottom: 10px; /* 下の余白 */
 }
 
+/* 時計のアイコン */
 .reservation-header i {
-/* < class="fa-solid fa-clock" f017 */
+/* fa-solid fa-clock f017 */
   font-size: 20px; /* 時計アイコンのサイズ */
   margin-right: 20px; /* アイコンとテキストの間に余白 */
 }
 
+/* ログインユーザー個人の予約番号 */
 .reservation-number {
   font-size: 16px; /* 予約番号のサイズ */
   font-weight: bold; /* 太字 */
 }
 
+/* 予約情報の内容 */
 .reservation-details {
   line-height: 1.5; /* 行間を調整 */
 }
 
-/* ------------- */
+/* 予約取り消しボタン */
+.delete-button {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.delete-button:hover {
+    background-color: darkred;
+}
+
+
+
+/* ----------------------- */
 
 
 /* 右側: お気に入り店舗 */
@@ -305,6 +332,7 @@ select {
     flex: 3; /* 右側は幅を広めに設定 */
 }
 
+/* パネル表示部分 */
 .favorites-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2列に並べる */
@@ -314,8 +342,8 @@ select {
 
 
 /* ----------------------------------------------- */
+/* 店舗詳細用のスタイル */
 
-/* Show用のスタイル */
 .show-main {
     width: 85%;
     height: auto;
@@ -324,13 +352,13 @@ select {
     grid-gap: 8%;
 }
 
-/* -------------------- */
-/* 左側：店舗情報 */
+/* 左側：店舗情報 --------------------------*/
 
 .show-shop-info {
     flex: 1;
 }
 
+/* 店舗名 + アイコン部分 */
 .shop-name-group {
     display: flex;
     align-items: center;
@@ -357,11 +385,11 @@ select {
     font-size: 30px;
 }
 
+/* アイコン */
 .back-to-shops i {
     font-size: 20px;
     color: black;
 }
-
 
 
 /* 店舗画像 */
@@ -385,8 +413,7 @@ select {
 }
 
 
-/* --------------------------- */
-/* 右側：予約フォーム */
+/* 右側：予約フォーム ----------------------- */
 
 /* 予約フォーム */
 .reservation-form {
@@ -425,7 +452,7 @@ select {
     border: none;
 }
 
-/* 予約情報表示 */
+/* 予約情報を確認する表示 */
 .confirmation-data {
     margin-top: 20px;
     padding: 20px;
@@ -447,8 +474,6 @@ select {
     position: relative;
     display: flex;
 }
-
-
 
 
 /* 確認するボタン */
@@ -491,6 +516,7 @@ select {
     cursor: pointer;
 }
 
+/* 予約確定ボタン */
 .reserve-button {
     position: absolute;
     bottom: 0;
@@ -506,16 +532,4 @@ select {
     cursor: not-allowed; /* 初期状態でカーソルを×印に設定 */
 }
 
-/* 取り消しボタン */
-.delete-button {
-    background-color: red;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.delete-button:hover {
-    background-color: darkred;
-}
+/* ----------------------------------------------- */

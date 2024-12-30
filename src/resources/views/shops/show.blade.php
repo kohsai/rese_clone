@@ -83,7 +83,7 @@
                 </div>
 
           <div class="confirm-button-group">
-            {{-- 確認ボタン --}}
+            {{-- 確認するボタン --}}
             <button type="submit" class="show-confirm-button">
             確認する
             </button>

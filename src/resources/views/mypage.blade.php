@@ -56,8 +56,6 @@
                 @method('DELETE')
                     <button type="submit" class="delete-button" onclick="return confirm('この予約を取り消しますか？')">キャンセル</button>
                 </form>
-
-
                         </div>
                     @endforeach
                 </div>
