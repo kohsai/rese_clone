@@ -17,11 +17,9 @@ Route::get('/',
 
 // 店舗関連のルート
 
-// GET /shops/show と POST /shops/{shop} は、ショップの詳細表示ページに関連するルートです。
+// GET /shops/showは、ショップの詳細表示ページに関連するルートです。
 Route::get('/shops/show',
 [ShopController::class, 'show'])->name('shops.show');
-
-Route::post('/shops/{shop}', [ShopController::class, 'show'])->name('shops.show');
 
 // GET /shops/edit は、ショップの編集ページを表示するためのルート。
 Route::get('/shops/edit', [ShopController::class, 'edit']
