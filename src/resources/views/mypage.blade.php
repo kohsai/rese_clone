@@ -43,7 +43,7 @@
                             <div class="reservation-details">
                                 <p>店舗名: {{ $reservation->shop->name }}</p> <!-- 店舗名 -->
 
-                                <p>予約日: {{ \Carbon\Carbon::parse($reservation->start_at)->format('Y-m-d') }}</p> <!-- 予約日 -->
+                                <p>予約日: {{ \Carbon\Carbon::parse($reservation->start_at)->format('Y年m月d日') }}</p> <!-- 予約日 -->
 
                                 <p>時間: {{ \Carbon\Carbon::parse($reservation->start_at)->format('H:i') }}</p> <!-- 予約時間 -->
 
