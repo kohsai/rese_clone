@@ -273,7 +273,7 @@ select {
     border-radius: 8px;
     padding: 20px;
     min-height: 170px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .reservation-header {
@@ -397,6 +397,7 @@ select {
     border-radius: 10px;
     position: relative;
     height: auto;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 影を追加 */
 }
 
 .reservation-form h2 {
@@ -465,9 +466,10 @@ select {
     left: 11%;
 }
 
+/* 選びなおすボタン */
 .select-again-button {
     position: absolute;
-    right: 7%;
+    right: 5%;
     padding: 8px 16px;
     border: 2px solid #ccc;
     background-color:darkgreen;
