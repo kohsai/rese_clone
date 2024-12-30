@@ -1,5 +1,5 @@
 <?php
-
+// このコードは、予約システムの予約管理を行う ReservationController というコントローラーで、ユーザーが店舗に予約をするためのロジックを提供しています。具体的には、予約の確認、完了、予約内容の変更などを扱っています。
 namespace App\Http\Controllers;
 
 use App\Models\Shop;
@@ -17,8 +17,12 @@ class ReservationController extends Controller
         return view('done');
     }
 
+    // store メソッド（予約を保存する）
     public function store(Request $request)
     {
+// ユーザーがフォームで送信した予約内容をデータベースに保存します。
+// バリデーション: 入力内容が正しいか（存在するショップID、日付、時間、人数の検証）を確認します。
+
         // バリデーション
         $validatedData = $request->validate([
             'shop_id' => 'required|exists:shops,id',
@@ -27,6 +31,7 @@ class ReservationController extends Controller
             'number' => 'required|integer|min:1|max:20',
         ]);
 
+// 予約情報にログインユーザーのID（Auth::id()）を追加し、start_at というフィールドに日時を統合して予約データを作成します。
         // ログインユーザーIDを追加し、start_at に日時を統合
         $reservationData = [
             'shop_id' => $validatedData['shop_id'],
@@ -35,7 +40,7 @@ class ReservationController extends Controller
             'start_at' => $validatedData['date'] . ' ' . $validatedData['time'],
         ];
 
-
+// 予約が保存された後、セッションの確認データをクリアし、完了画面へリダイレクトします。
         // データベースに予約を保存
         Reservation::create($reservationData);
 
@@ -47,18 +52,22 @@ class ReservationController extends Controller
     }
 
 
-
+    // show メソッド（予約確認画面を表示）
     public function show($id)
     {
+// 特定の店舗情報（Shop モデル）を取得し、その店舗の詳細ページを表示します。
         // ショップ情報を取得
         $shop = Shop::with(['area', 'genre'])->findOrFail($id);
 
+// セッションから予約の確認データ（日時、人数、店舗名など）を取得してビューに渡します。
         // セッションから確認データを取得
         $confirmationData = Session::get('confirmationData', [
             'date' => '',
             'time' => '',
             'number' => '',
         ]);
+
+// confirmationFlag を使って、ユーザーが予約内容を確認しているかどうかを判断します。
         // confirmationFlagがセッションに保存されているか確認
         $confirmationFlag = Session::get('confirmationFlag', false);
 
@@ -69,10 +78,11 @@ class ReservationController extends Controller
 
 
 
-    // 確認ボタンの処理
+    // confirm メソッド（予約内容の確認）
     public function confirm(Request $request)
     {
 
+// ユーザーが予約内容を確認するために、確認データをセッションに保存し、店舗詳細ページにリダイレクトします。
         // バリデーション
         $validatedData = $request->validate([
             'shop_id' => 'required|exists:shops,id',
@@ -95,6 +105,7 @@ class ReservationController extends Controller
             // セッションに確認データを保存
             Session::put('confirmationData', $confirmationData);
 
+            // 予約内容（店舗ID、日時、人数）を確認した後、セッションに保存してその後の画面に渡します。
 
             // 店舗詳細画面にリダイレクトし、確認情報を表示
             return redirect()->route('shops.show', ['id' => $shop->id])->with('confirmationFlag', true);
@@ -104,7 +115,8 @@ class ReservationController extends Controller
         }
     }
 
-    //  選びなおすボタン
+
+    //  選びなおし
     public function resetForm($shopId)
     {
         // セッションから確認データを削除
@@ -115,7 +127,7 @@ class ReservationController extends Controller
         return redirect()->route('shops.show', ['shop' => $shopId]);
     }
 
-    // 予約削除メソッド
+    // 予約キャンセル
     public function destroy($id)
     {
         // ログインユーザーの予約を検索
@@ -131,6 +143,13 @@ class ReservationController extends Controller
             return redirect()->route('mypage')->with('error', '予約のキャンセルに失敗しました。');
         }
     }
-
-
 }
+
+// まとめ
+// このコントローラーは、以下の機能を提供します：
+
+// 予約確認画面の表示。
+// ユーザーの入力をもとに予約内容をデータベースに保存。
+// 予約確認のための確認ボタンや、選び直しボタンの処理。
+// ユーザーが予約をキャンセルする機能。
+// ユーザーが予約を行う際に、セッションを利用して確認・選び直し・キャンセルのフローを管理し、必要なデータを保存・表示する役割を果たしています。
