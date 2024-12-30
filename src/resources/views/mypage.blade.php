@@ -99,20 +99,3 @@
 </body>
 
 </html>
-
-{{--
-@foreach ($reservations as $reservation)
-    <div class="reservation-item">
-        <div class="reservation-header">
-        <i class="fa-solid fa-clock"></i>
-        <span class="reservation-number">予約{{ $reservation->id }}</span>
-        <button class="delete-button" onclick="deleteReservation({{ $reservation->id }})">×</button>
-    </div>
-    <div class="reservation-details">
-        <p>Shop: {{ $reservation->shop->name }}</p>
-        <p>Date: {{ $reservation->date }}</p>
-        <p>Time: {{ $reservation->time }}</p>
-        <p>Number: {{ $reservation->number }}人</p>
-    </div>
-    </div>
-@endforeach --}}
