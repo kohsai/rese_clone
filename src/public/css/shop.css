@@ -504,3 +504,16 @@ select {
     cursor: not-allowed; /* 初期状態でカーソルを×印に設定 */
 }
 
+/* 取り消しボタン */
+.delete-button {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.delete-button:hover {
+    background-color: darkred;
+}

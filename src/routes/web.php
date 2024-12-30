@@ -68,8 +68,11 @@ Route::post('/reservations/confirm', [ReservationController::class, 'confirm'])-
 
 Route::post('/reservations/store', [ReservationController::class, 'store'])->name('reservations.store');
 
+// 選びなおすボタン
 Route::get('/shops/{shop}/reset', [ReservationController::class, 'resetForm'])->name('reservations.reset');
 
+// 予約取り消し
+Route::delete('/reservations/{reservation}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
 
 
 

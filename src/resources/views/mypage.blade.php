@@ -49,10 +49,19 @@
 
                                 <p>人数: {{ $reservation->num_of_users }}人</p> <!-- 予約人数 -->
                             </div>
+
+        <!-- 予約取り消しフォーム -->
+                <form action="{{ route('reservations.destroy', $reservation->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                @method('DELETE')
+                    <button type="submit" class="delete-button" onclick="return confirm('この予約を取り消しますか？')">キャンセル</button>
+                </form>
+
+
                         </div>
                     @endforeach
                 </div>
-            </div>
+        </div>
 
         {{-- <右側: お気に入り店舗> --}}
         <div class="favorites">

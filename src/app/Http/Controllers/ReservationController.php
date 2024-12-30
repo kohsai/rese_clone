@@ -46,6 +46,8 @@ class ReservationController extends Controller
         return redirect()->route('reservations.done')->with('message', '予約が完了しました！');
     }
 
+
+
     public function show($id)
     {
         // ショップ情報を取得
@@ -113,6 +115,22 @@ class ReservationController extends Controller
         return redirect()->route('shops.show', ['shop' => $shopId]);
     }
 
+    // 予約削除メソッド
+    public function destroy($id)
+    {
+        // ログインユーザーの予約を検索
+        $reservation = Reservation::where('id', $id)
+        ->where('user_id', auth()->id())  // ログインユーザーの予約のみ対象
+        ->first();
+
+        if ($reservation) {
+            // 予約が見つかれば削除
+            $reservation->delete();
+            return redirect()->route('mypage')->with('success', '予約がキャンセルされました。');
+        } else {
+            return redirect()->route('mypage')->with('error', '予約のキャンセルに失敗しました。');
+        }
+    }
 
 
 }
