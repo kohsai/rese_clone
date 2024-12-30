@@ -14,7 +14,9 @@
 <body class="container">
 
 <header class="header">
-  <!-- アイコンをクリックしたら遷移先を変える -->
+{{-- Auth::check(): ユーザーがログインしているかを確認。
+ログイン済みならmenuルートに遷移。
+未ログインならnotloggedinルートに遷移。 --}}
   <a href="{{ Auth::check() ? route('menu') : route('notloggedin') }}" class="icon-link">
   <span class="icon">
     <i class="fa-solid fa-square-poll-horizontal horizontal"></i></span>
@@ -32,6 +34,7 @@
   <!-- メッセージの表示 -->
   @if(session('message'))
     <div class="alert alert-info" style="color: #f39c12; padding: 5px; border: 1px solid #f39c12;">
+      {{-- セッションに格納されたメッセージがあれば、画面に表示。 --}}
         {{ session('message') }}
     </div>
   @endif
@@ -45,6 +48,7 @@
 
         <select name="area">
           <option value="">All area</option>
+          {{-- エリア一覧を$areasから取得し、選択肢として表示。 --}}
             @foreach ($areas as $area)
               <option value="{{ $area->id }}">{{ $area->area_name }}</option>
             @endforeach
@@ -52,6 +56,7 @@
 
         <select name="genre">
           <option value="">All genre</option>
+          {{-- ジャンル一覧を$genresから取得し、選択肢として表示。 --}}
             @foreach ($genres as $genre)
               <option value="{{ $genre->id }}">{{ $genre->genre_name }}</option>
             @endforeach
@@ -87,11 +92,19 @@
         <span>#{{ $shop->genre->genre_name }}</span>
         </div>
 
+{{-- **Auth::check()**でログイン状態を確認。
+ログイン済み: 店舗詳細ページへ遷移するルート（route('shops.show', $shop)）を設定。
+未ログイン: #（現在のページを維持）を設定。 --}}
+{{-- class属性:
+未ログインの場合、disabledクラスを付与。これによりCSSで見た目を無効化。
+onclick属性:
+未ログインの場合、JavaScriptでクリック操作を無効化（return false;）。 --}}
     <a href="{{ Auth::check() ? route('shops.show', $shop) : '#' }}" class="detail-button @if(!Auth::check()) disabled @endif" @if(!Auth::check()) onclick="return false;" @endif>詳しく見る
     </a>
 
 
       <div class="heart-container">
+        {{-- 店舗IDを渡して、「お気に入り」登録・解除を切り替える処理を実行。 --}}
         <form action="{{ route('shops.toggle-favorite', ['shop' => $shop->id]) }}" method="POST">
           @csrf
             <!-- 未ログインの場合はボタンが無効になる -->
