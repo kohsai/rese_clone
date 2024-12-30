@@ -288,7 +288,7 @@ cursor: pointer; /* カーソルをポインターに変更 */
 
 .reserve-thanks {
     display: block;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     letter-spacing: 2px;
     border: 1px solid #ccc;
@@ -297,31 +297,32 @@ cursor: pointer; /* カーソルをポインターに変更 */
     width: 100%;
     height: 250px;
     line-height: 100px;
-    padding-top: 30px;
     text-align: center;
+    position: relative;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+    position: relative;
+    padding-top: 30px;
 }
 
 .reservebtn-container {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: #214be0;
     color: #fff;
     font-size: 16px;
-    width: 15%;
-    height: 35px;
-    display: flex;
-    justify-content: center;
+    width: auto;
+    padding: 5px 15px;
     text-align: center;
     border-radius: 6px;
-    margin: 0 auto;
+    text-decoration: none;
 }
 
-.reservebtn-container input {
-    font-size: 16px;
+.reservebtn-container a {
+    font-size: 14px;
     color: #fff;
-    width: 100%;
-    height: 100%;
-    border: none;
-    background: none;
+    text-decoration: none;
 }
 
 /* -------------------------------------------------*/

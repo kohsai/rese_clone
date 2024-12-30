@@ -42,9 +42,6 @@ Route::get('/login',
 Route::get('/notloggedin',
 [AuthenticatedSessionController::class, 'notloggedin'])->name('notloggedin');
 
-Route::get('/done',
-[ReservationController::class, 'done'])->name('done');
-
 
 // 検索フォーム
 Route::get('/shops/search', [ShopController::class, 'search'])->name('shops.search');
@@ -61,10 +58,11 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('l
 
 
 
+Route::get('/reservations/done',
+[ReservationController::class, 'done'])->name('reservations.done');
+
+
 Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
-
-Route::get('/reservations/done', [ReservationController::class, 'done'])->name('reservation.done');
-
 
 Route::post('/reservations/confirm', [ReservationController::class, 'confirm'])->name('reservations.confirm');
 

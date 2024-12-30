@@ -24,7 +24,7 @@ class ReservationController extends Controller
             'shop_id' => 'required|exists:shops,id',
             'date' => 'required|date',
             'time' => 'required',
-            'number' => 'required|integer|min:1|max:10',
+            'number' => 'required|integer|min:1|max:20',
         ]);
 
         // ログインユーザーIDを追加し、start_at に日時を統合
@@ -50,14 +50,6 @@ class ReservationController extends Controller
     {
         // ショップ情報を取得
         $shop = Shop::with(['area', 'genre'])->findOrFail($id);
-
-        // デバッグ用ログ
-        \Log::info('Session Data:', [
-            'confirmationData' => Session::get('confirmationData'),
-            'confirmationFlag' => Session::get('confirmationFlag'),
-        ]);
-
-
 
         // セッションから確認データを取得
         $confirmationData = Session::get('confirmationData', [
@@ -90,6 +82,7 @@ class ReservationController extends Controller
         try {
             $shop = Shop::findOrFail($validatedData['shop_id']);
 
+            // 確認データをセッションに保存
             $confirmationData = [
                 'date' => $validatedData['date'],
                 'time' => $validatedData['time'],
@@ -97,10 +90,12 @@ class ReservationController extends Controller
                 'shop_name' => $shop->name,
             ];
 
+            // セッションに確認データを保存
             Session::put('confirmationData', $confirmationData);
-            Session::put('confirmationFlag', true);
 
-            return redirect()->route('shops.show', ['shop' => $validatedData['shop_id']]);
+
+            // 店舗詳細画面にリダイレクトし、確認情報を表示
+            return redirect()->route('shops.show', ['id' => $shop->id])->with('confirmationFlag', true);
         } catch (\Exception $e) {
             \Log::error('Error in confirm method:', ['error' => $e->getMessage()]);
             return redirect()->back()->withErrors(['error' => '予約の確認に失敗しました。もう一度お試しください。']);

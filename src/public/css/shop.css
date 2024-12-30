@@ -440,6 +440,16 @@ select {
     font-size: 14px;
 }
 
+
+/* 確認するボタン + 選びなおすボタン */
+.confirm-button-group {
+    position: relative;
+    display: flex;
+}
+
+
+
+
 /* 確認するボタン */
 .show-confirm-button {
     cursor: pointer;
@@ -457,7 +467,7 @@ select {
 
 .select-again-button {
     position: absolute;
-    right: 7%; /* 右端に配置 */
+    right: 7%;
     padding: 8px 16px;
     border: 2px solid #ccc;
     background-color:darkgreen;
@@ -493,3 +503,4 @@ select {
     font-size: 16px;
     cursor: not-allowed; /* 初期状態でカーソルを×印に設定 */
 }
+

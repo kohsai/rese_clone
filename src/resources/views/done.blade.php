@@ -1,14 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- @csrf --}}
 
-<div class="reserve-thanks">ご予約ありがとうございます
-     <div class="reservebtn-container">
-    <input type="submit" value="戻る">
+<div class="reserve-thanks">ご予約ありがとうございます</div>
+    <div class="reservebtn-container">
+        <a href="{{ route('shops.index') }}" >戻る</a>
     </div>
-</div>
-
 
 @endsection
 

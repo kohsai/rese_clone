@@ -82,17 +82,19 @@
                     </select>
                 </div>
 
-
+          <div class="confirm-button-group">
             {{-- 確認ボタン --}}
             <button type="submit" class="show-confirm-button">
             確認する
             </button>
+            </form>
 
             {{-- 選びなおすボタン --}}
                 <a href="{{ route('reservations.reset', ['shop' => $shop->id]) }}" class="select-again-button">
                     選びなおす
                 </a>
-            </form>
+          </div>
+
 
         <!-- 確認情報の表示 -->
       @if (session('confirmationData'))
@@ -100,18 +102,27 @@
                 $confirmationData = session('confirmationData');
             @endphp
 
+        {{-- 確認情報の表示 --}}
         <div class="confirmation-data">
           <p>店舗名: {{ $confirmationData['shop_name'] }}</p>
-          <p>日付: {{ \Carbon\Carbon::parse(session('confirmationData')['date'])->format('Y年m月d日') }}</p>
+          <p>日付: {{ \Carbon\Carbon::parse($confirmationData['date'])->format('Y年m月d日') }}</p>
           <p>時間: {{ $confirmationData['time'] }}</p>
           <p>人数: {{ $confirmationData['number'] }}</p>
         </div>
-      @endif
 
-
-        {{-- 予約ボタン --}}
-          <button type="submit" class="reserve-button" {{ !session('confirmationData') ? 'disabled' : '' }}>予約する
-          </button>
+      <!-- 予約確定ボタン -->
+      <form action="{{ route('reservations.store') }}" method="POST">
+        @csrf
+        <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+        <input type="hidden" name="date" value="{{ $confirmationData['date'] }}">
+        <input type="hidden" name="time" value="{{ $confirmationData['time'] }}">
+        <input type="hidden" name="number" value="{{ $confirmationData['number'] }}">
+        <button type="submit" class="reserve-button">予約する</button>
+      </form>
+@else
+    <!-- 確認情報がない場合、予約ボタンは無効 -->
+    <button type="button" class="reserve-button" disabled>予約する</button>
+@endif
 
 
     </div>
