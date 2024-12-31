@@ -17,6 +17,13 @@
         <i class="fa-solid fa-square-poll-horizontal horizontal"></i></span>
 
         <h1 class="header-ttl">Rese</h1>
+    <!-- 戻る矢印アイコン -->
+    <div class="back-icon">
+        <a href="{{ route('shops.index') }}" class="back-to-shops" title="店舗一覧へ戻る">
+            <i class="fa-solid fa-angle-left"></i>
+        </a>
+    </div>
+
     </header>
 
     <main class="mypage-main">
