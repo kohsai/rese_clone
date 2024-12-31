@@ -65,7 +65,7 @@ Route::get('/menu',
 [AuthenticatedSessionController::class, 'menu'])->name('menu');
 
 
-// マイページ
+// マイページ関連
 
 // GET /mypage は、ログイン後にユーザーが自身のマイページにアクセスするためのルートです。
 Route::get('/mypage',
@@ -100,6 +100,12 @@ Route::get('/shops/{shop}/reset', [ReservationController::class, 'resetForm'])->
 
 // DELETE /reservations/{reservation} は、予約を削除するためのルート。
 Route::delete('/reservations/{reservation}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
+
+// PUT /reservations/{reservation} は、予約を変更するためのルート。
+Route::put('/reservations/{reservation}', [ReservationController::class, 'update'])->name('reservations.update');
+
+// 予約の更新ルート
+Route::put('/reservations/{id}', [UserController::class, 'updateReservation'])->name('reservations.update');
 
 
 // お気に入り関連
