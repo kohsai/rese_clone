@@ -195,6 +195,10 @@ select {
     font-size: 14px;
 }
 
+.detail-button:hover {
+    background-color: blue;
+}
+
 /* ハートマーク周り */
 .heart-container {
     position: absolute;
@@ -593,7 +597,7 @@ select {
 .show-confirm-button {
     cursor: pointer;
     border: 2px solid #ccc;
-    background-color:darkblue;
+    background-color: #214be0;
     color: white;
     border-radius: 5px;
     padding: 8px 16px;
@@ -605,7 +609,7 @@ select {
 }
 
 .show-confirm-button:hover {
-    background-color: #214be0;
+    background-color: darkblue;
 }
 
 /* 選びなおすボタン */
@@ -614,7 +618,7 @@ select {
     right: 5%;
     padding: 8px 16px;
     border: 2px solid #ccc;
-    background-color:darkgreen;
+    background-color:olivedrab;
     color: white;
     text-decoration: none; /* デフォルトのリンクの下線を消す */
     border-radius: 5px;
@@ -623,7 +627,7 @@ select {
 }
 
 .select-again-button:hover {
-background-color: green;
+background-color: darkgreen;
 }
 
 
