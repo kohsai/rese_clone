@@ -15,6 +15,13 @@
         <span class="icon">
             <i class="fa-solid fa-square-poll-horizontal horizontal"></i></span>
         <h1 class="header-ttl">Rese</h1>
+
+        <!-- 戻る矢印アイコン -->
+    <div class="back-icon">
+        <a href="{{ route('shops.index') }}" class="back-to-shops" title="店舗一覧へ戻る">
+            <i class="fa-solid fa-angle-left"></i>
+        </a>
+    </div>
     </header>
 
     <main class="mypage-main">
@@ -28,6 +35,7 @@
                 <div class="reservations">
                     <h3>予約状況</h3>
                     <div class="reservation-list">
+            @if (!empty($reservations) && count($reservations) > 0)
                         <!-- 予約情報をループで表示 -->
                         @foreach ($reservations as $index => $reservation)
                             <div class="reservation-item">
@@ -117,6 +125,9 @@
                                 </div>
                             </div>
                         @endforeach
+                    @else
+                        <p>現在、予約はありません。</p>
+                    @endif
                     </div>
                 </div>
 
