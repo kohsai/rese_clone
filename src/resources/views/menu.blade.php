@@ -1,7 +1,6 @@
 @extends('layouts.usermenu')
 
 @section('content')
-{{-- @csrf --}}
 
 
 <div class="user-menu">

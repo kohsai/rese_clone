@@ -44,7 +44,6 @@
 <option value="{{ $area->id }}">{{ $area->area_name }}</option>: 地域IDをvalue属性に、地域名を表示用に利用。 --}}
 
 
-
 <div class="input-container">
     <i class="fa-solid fa-utensils utensils"></i>
     <select name="genre_id">
