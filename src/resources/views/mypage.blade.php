@@ -54,7 +54,7 @@
                                                     @csrf
                                                     @method('PUT')
 
-                                                    <h3>予約情報の編集</h3>
+                                                    <h3>予約情報の変更</h3>
                                                     <div class="modal-input-group">
                                                         <label for="date">予約日:</label>
                                                         <input type="date" name="date" id="date"
@@ -95,7 +95,7 @@
 
                                                     <div class="modal-buttons">
                                                         <button type="submit" class="save-button">変更を保存</button>
-                                                        <button type="button" class="cancel-button" onclick="document.getElementById('modal-toggle').checked = false; window.location.href = '{{ route('mypage') }}';">キャンセル</button>
+                                                        <button type="button" class="cancel-button" onclick="document.getElementById('modal-toggle').checked = false; window.location.href = '{{ route('mypage') }}';">変更しない</button>
                                                     </div>
                                                 </form>
                                             </div>
