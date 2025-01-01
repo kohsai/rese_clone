@@ -31,14 +31,6 @@
     </div>
   @endif
 
-  <!-- メッセージの表示 -->
-  @if(session('message'))
-    <div class="alert alert-info" style="color: #f39c12; padding: 5px; border: 1px solid #f39c12;">
-      {{-- セッションに格納されたメッセージがあれば、画面に表示。 --}}
-        {{ session('message') }}
-    </div>
-  @endif
-
 
   <div class="header-nav">
 
@@ -71,6 +63,14 @@
     </form>
   </div>
 </header>
+
+  <!-- メッセージの表示 -->
+  @if(session('message'))
+    <div class="alert alert-info">
+      {{-- セッションに格納されたメッセージがあれば、画面に表示。 --}}
+        {{ session('message') }}
+    </div>
+  @endif
 
 
 <main class="main">
