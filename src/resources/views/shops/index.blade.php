@@ -69,10 +69,6 @@
           </div>
       </div>
     </form>
-@if (empty($shops))
-  <p>検索条件に一致する店舗は見つかりませんでした。</p>
-@endif
-
   </div>
 </header>
 
@@ -116,6 +112,14 @@ onclick属性:
     </div>
   </div>
 @endforeach
+{{-- 店舗が見つからない場合のメッセージ --}}
+@if (empty($shops))
+<div class="alert alert-warning" >
+検索条件に一致する店舗は見つかりませんでした。</div>
+@endif
+
+
+
 </main>
 
 </body>
