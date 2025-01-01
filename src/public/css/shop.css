@@ -44,12 +44,6 @@
     font-weight: bold;
 }
 
-/* 未ログインユーザーへのメッセージ */
-.alert-info {
-    position: absolute;
-    left: 20%; /* 左端から */
-    top: 5%;   /* 上端から */
-}
 
 /* メイン画面の検索フォーム + 検索ボタン */
 .header-nav {
@@ -150,6 +144,17 @@ select {
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 20px;
 }
+
+/* 未ログインユーザーへのメッセージ */
+.alert-info {
+width: 35%;
+color: #f39c12;
+padding: 10px;
+margin-bottom: 20px;
+border: 1px solid #f39c12;
+margin-left: 8%;
+}
+
 
 /* 店舗パネル  */
 .shop-item {
