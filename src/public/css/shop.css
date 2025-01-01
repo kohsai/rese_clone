@@ -53,9 +53,11 @@
 
 /* メイン画面の検索フォーム + 検索ボタン */
 .header-nav {
-    width: 40%;
-    margin-left: 35%;
-    margin-right: 8%;
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* 検索フォームの矢印  */
@@ -76,27 +78,32 @@ select {
 /* 検索フォーム  */
 .search-form-group {
     height: 50px;
-    width: 70%;
+    width: 90%;
+    max-width: 500px;
     align-items: center;
     border: 1px solid #f2f2f2;
     border-radius: 5px;
     background-color: #fff;
     display: flex;
-    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: nowrap;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
 
 
 .search-form-group select {
-    border-right: 3px solid #f2f2f2;
-    padding: 0 15px;
+    flex: 1;
+    min-width: 150px;
+    border-right: 2px solid #f2f2f2;
+    padding: 10px;
     font-weight: bold;
 }
 
 
-.search-form-group input {
+.search-form-group input[type="text"] {
+    flex: 2;
+    min-width: 80px;
     padding: 10px;
-    width: 70px;
     border: none;
     outline: none;
     font-weight: bold;
@@ -104,21 +111,34 @@ select {
 
 /* 検索ボタン  */
 .search-button {
-    width: 50%;
-    margin-left: 10%;
-    height: 45px;
+    margin-left: 10px;
 }
 
 .search-button input {
     background-color: #214be0;
-    width: auto;
     height: 45px;
+    padding: 8px 16px;
     font-size: 16px;
     color: #ffffff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.search-button input:hover {
+    background-color: blue;
+}
+
+.alert-warning {
+    color:darkorange;
+    padding: 10px;
+    border: 1px solid darkorange ;
+    margin-top: 20px;
+    font-weight: bold;
+    position: fixed;
+    top: 15%;
+    right: 18%;
 }
 
 /*------------------------------------------------*/
@@ -627,7 +647,7 @@ select {
 }
 
 .select-again-button:hover {
-background-color: darkgreen;
+background-color: green;
 }
 
 
