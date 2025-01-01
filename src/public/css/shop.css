@@ -136,14 +136,6 @@ select {
 }
 
 /*------------------------------------------------*/
-.main {
-    width: 85%;
-    height: auto;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 20px;
-}
 
 /* 未ログインユーザーへのメッセージ */
 .alert-info {
@@ -153,6 +145,16 @@ padding: 10px;
 margin-bottom: 20px;
 border: 1px solid #f39c12;
 margin-left: 8%;
+}
+
+
+.main {
+    width: 85%;
+    height: auto;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
 }
 
 
