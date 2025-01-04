@@ -21,7 +21,7 @@ Route::get('/',
 Route::get('/shops/show',
 [ShopController::class, 'show'])->name('shops.show');
 
-// GET /shops/edit は、ショップの編集ページを表示するためのルート。
+// GET /shops/edit は、ショップの編集ページを表示するためのルート。※ 追加機能で管理者用画面などを作成しようと準備していたルートです。まだできていません。
 Route::get('/shops/edit', [ShopController::class, 'edit']
 )->name('shops.edit');
 
@@ -122,6 +122,10 @@ Route::resource('shops', ShopController::class);
 // 削除 (DELETE /shops/{shop})
 // Route::resource を使うことで、手動で各メソッドを設定する必要がなくなります。
 
+
+
+
+// ※（以下の指摘については調整中）
 
 // 問題点と改善点
 // POST /shops/show と GET /shops/show が両方設定されていますが、通常、POST メソッドを使う理由が不明です。詳細ページは通常 GET メソッドで表示するのが一般的です。
