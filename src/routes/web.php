@@ -21,7 +21,7 @@ Route::get('/',
 Route::get('/shops/show',
 [ShopController::class, 'show'])->name('shops.show');
 
-// GET /shops/edit は、ショップの編集ページを表示するためのルート。
+// GET /shops/edit は、ショップの編集ページを表示するためのルート。※ 追加機能で管理者用画面などを作成しようと準備していたルートです。まだできていません。
 Route::get('/shops/edit', [ShopController::class, 'edit']
 )->name('shops.edit');
 
@@ -65,7 +65,7 @@ Route::get('/menu',
 [AuthenticatedSessionController::class, 'menu'])->name('menu');
 
 
-// マイページ関連
+// マイページ
 
 // GET /mypage は、ログイン後にユーザーが自身のマイページにアクセスするためのルートです。
 Route::get('/mypage',
@@ -101,12 +101,6 @@ Route::get('/shops/{shop}/reset', [ReservationController::class, 'resetForm'])->
 // DELETE /reservations/{reservation} は、予約を削除するためのルート。
 Route::delete('/reservations/{reservation}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
 
-// PUT /reservations/{reservation} は、予約を変更するためのルート。
-Route::put('/reservations/{reservation}', [ReservationController::class, 'update'])->name('reservations.update');
-
-// 予約の更新ルート
-Route::put('/reservations/{id}', [UserController::class, 'updateReservation'])->name('reservations.update');
-
 
 // お気に入り関連
 
@@ -128,6 +122,10 @@ Route::resource('shops', ShopController::class);
 // 削除 (DELETE /shops/{shop})
 // Route::resource を使うことで、手動で各メソッドを設定する必要がなくなります。
 
+
+
+
+// ※（以下の指摘については調整中）
 
 // 問題点と改善点
 // POST /shops/show と GET /shops/show が両方設定されていますが、通常、POST メソッドを使う理由が不明です。詳細ページは通常 GET メソッドで表示するのが一般的です。
