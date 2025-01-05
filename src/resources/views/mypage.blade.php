@@ -30,74 +30,74 @@
                 <h2>{{ Auth::user()->name }}さん</h2> <!-- ユーザー名を表示 -->
             </div>
 
-            <div class="mypage-container">
+        <div class="mypage-container">
 
-                <!-- 左側: 予約情報 -->
-                <div class="reservations">
+        <!-- 左側: 予約情報 -->
+            <div class="reservations">
                     <h3>予約状況</h3>
                     <div class="reservation-list">
-                        <!-- 予約情報をループで表示 -->
-                        @foreach ($reservations as $index => $reservation)
-                            <div class="reservation-item">
-                                <div class="reservation-header">
-                                    <i class="fa-solid fa-clock"></i>
-                                    <span class="reservation-number">予約{{ $index + 1 }}</span> <!-- 何番目の予約か表示 -->
-                                </div>
+        <!-- 予約情報をループで表示 -->
+    @foreach ($reservations as $index => $reservation)
+    <div class="reservation-item">
+        <div class="reservation-header">
+            <i class="fa-solid fa-clock"></i>
+            <span class="reservation-number">予約{{ $index + 1 }}</span> <!-- 何番目の予約か表示 -->
+        </div>
 
-                                <div class="reservation-details">
-                                    <p>店舗名: {{ $reservation->shop->name }}</p> <!-- 店舗名 -->
+    <div class="reservation-details">
+        <p>店舗名: {{ $reservation->shop->name }}</p> <!-- 店舗名 -->
 
-                                    <p>予約日: {{ \Carbon\Carbon::parse($reservation->start_at)->format('Y年m月d日') }}</p> <!-- 予約日 -->
+        <p>予約日: {{ \Carbon\Carbon::parse($reservation->start_at)->format('Y年m月d日') }}</p> <!-- 予約日 -->
 
-                                    <p>時間: {{ \Carbon\Carbon::parse($reservation->start_at)->format('H:i') }}</p> <!-- 予約時間 -->
+        <p>時間: {{ \Carbon\Carbon::parse($reservation->start_at)->format('H:i') }}</p> <!-- 予約時間 -->
 
-                                    <p>人数: {{ $reservation->num_of_users }}人</p> <!-- 予約人数 -->
-                                </div>
+        <p>人数: {{ $reservation->num_of_users }}人</p> <!-- 予約人数 -->
+    </div>
 
-                                <!-- 予約取り消しフォーム -->
-                                <form action="{{ route('reservations.destroy', $reservation->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="delete-button" onclick="return confirm('この予約を取り消しますか？')">キャンセル</button>
-                                </form>
-                            </div>
-                        @endforeach
+    <!-- 予約取り消しフォーム -->
+    <form action="{{ route('reservations.destroy', $reservation->id) }}" method="POST" style="display:inline;">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="delete-button" onclick="return confirm('この予約を取り消しますか？')">キャンセル</button>
+    </form>
+    </div>
+    @endforeach
 
-                        @if ($reservations->isEmpty())
-                            <p>現在、予約はありません。</p> <!-- 予約が無い場合のメッセージ -->
-                        @endif
+    @if ($reservations->isEmpty())
+    <p>現在、予約はありません。</p> <!-- 予約が無い場合のメッセージ -->
+    @endif
+    </div>
+    </div>
+
+    <!-- 右側: お気に入り店舗 -->
+    <div class="favorites">
+        <h3>お気に入り店舗</h3>
+            <div class="favorites-container">
+            @if (!empty($favorites) && count($favorites) > 0)
+            @foreach ($favorites as $shop)
+                <div class="shop-item">
+                    <div class="shop-image" style="background-image: url({{ $shop->image_url }});">
+                </div>
+                <div class="shop-info">
+                <h3>{{ $shop->name }}</h3>
+                    <div class="shop-details">
+                    <span>#{{ $shop->area->area_name }}</span>
+                    <span>#{{ $shop->genre->genre_name }}</span>
+                </div>
+                <form action="{{ route('shops.show', $shop) }}" method="GET">
+                <button type="submit" class="detail-button">詳しく見る</button>
+                </form>
+                    <div class="heart-container">
+                    <i class="fa-solid fa-heart heart is-active"></i>
                     </div>
                 </div>
-
-                <!-- 右側: お気に入り店舗 -->
-                <div class="favorites">
-                    <h3>お気に入り店舗</h3>
-                    <div class="favorites-container">
-                        @if (!empty($favorites) && count($favorites) > 0)
-                            @foreach ($favorites as $shop)
-                                <div class="shop-item">
-                                    <div class="shop-image" style="background-image: url({{ $shop->image_url }});">
-                                    </div>
-                                    <div class="shop-info">
-                                        <h3>{{ $shop->name }}</h3>
-                                        <div class="shop-details">
-                                            <span>#{{ $shop->area->area_name }}</span>
-                                            <span>#{{ $shop->genre->genre_name }}</span>
-                                        </div>
-                                        <form action="{{ route('shops.show', $shop) }}" method="GET">
-                                            <button type="submit" class="detail-button">詳しく見る</button>
-                                        </form>
-                                        <div class="heart-container">
-                                            <i class="fa-solid fa-heart heart is-active"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @else
-                            <p>お気に入り店舗はありません。</p>
-                        @endif
-                    </div>
-                </div>
+            </div>
+            @endforeach
+            @else
+            <p>お気に入り店舗はありません。</p>
+            @endif
+            </div>
+            </div>
 
             </div>
         @endif
