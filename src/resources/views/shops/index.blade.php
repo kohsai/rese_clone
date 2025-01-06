@@ -64,7 +64,7 @@
   </div>
 </header>
 
-    <!-- メッセージの表示 -->
+  <!-- メッセージの表示 -->
   @if(session('message'))
     <div class="alert alert-info">
       {{-- セッションに格納されたメッセージがあれば、画面に表示。 --}}

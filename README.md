@@ -64,10 +64,13 @@ php artisan migrate
 ・MySQL: 8.0.26
 
 【　テーブル設計　】
+
 ![alt text](<スクリーンショット 2025-01-05 145239.png>)
 
 【　ER図　】
-![alt text](<スクリーンショット 2025-01-05 152800.png>)
+
+=======
+![alt text](<スクリーンショット 2025-01-05 145239.png>)
 
 【　URL　】
 ・開発環境:http://localhost/

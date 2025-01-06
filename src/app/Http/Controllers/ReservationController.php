@@ -143,6 +143,29 @@ class ReservationController extends Controller
             return redirect()->route('mypage')->with('error', '予約のキャンセルに失敗しました。');
         }
     }
+
+    // 予約変更
+    public function update(Request $request, $id)
+    {
+        // バリデーション
+        $request->validate([
+            'date' => 'required|date|after_or_equal:today',
+            'time' => 'required|date_format:H:i',
+            'num_of_users' => 'required|integer|min:1',
+        ]);
+
+        // 該当の予約を取得
+        $reservation = Reservation::findOrFail($id);
+
+        // 予約情報を更新
+        $reservation->start_at = $request->date . ' ' . $request->time;
+        $reservation->num_of_users = $request->num_of_users;
+        $reservation->save();
+
+        // ユーザーにフィードバックを提供
+        return redirect()->route('mypage')->with('status', '予約を変更しました！');
+    }
+
 }
 
 // まとめ

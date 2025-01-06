@@ -102,6 +102,11 @@ Route::get('/shops/{shop}/reset', [ReservationController::class, 'resetForm'])->
 Route::delete('/reservations/{reservation}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
 
 
+// 予約更新のルート
+Route::put('/reservations/{reservation}', [ReservationController::class, 'update'])->name('reservations.update');
+
+
+
 // お気に入り関連
 
 // POST /shops/{shop}/toggle-favorite は、ショップの「お気に入り」を切り替えるためのルートです。
