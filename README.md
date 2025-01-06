@@ -69,7 +69,8 @@ php artisan migrate
 
 【　ER図　】
 
-![alt text](<スクリーンショット 2025-01-05 152800.png>)
+=======
+![alt text](<スクリーンショット 2025-01-05 145239.png>)
 
 【　URL　】
 ・開発環境:http://localhost/

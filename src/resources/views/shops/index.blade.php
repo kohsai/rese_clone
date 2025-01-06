@@ -75,6 +75,7 @@
 
 <main class="main">
 
+
   @foreach ($shops as $shop)
     <div class="shop-item">
       <div class="shop-image" style="background-image: url({{ $shop->image_url }})">

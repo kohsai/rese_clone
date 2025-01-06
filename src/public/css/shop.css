@@ -137,7 +137,6 @@ select {
 
 /*------------------------------------------------*/
 
-
 /* 未ログインユーザーへのメッセージ */
 .alert-info {
 width: 35%;
@@ -157,6 +156,7 @@ margin-left: 8%;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 20px;
 }
+
 
 /* 店舗パネル  */
 .shop-item {
