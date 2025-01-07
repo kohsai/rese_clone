@@ -51,12 +51,15 @@ DB_PASSWORD=laravel_pass
 
 
 【　アプリケーションキーの作成　】
+
 php artisan key:generate
 
 【　マイグレーションの実行　】
+
 php artisan migrate
 
 【　使用技術（実行環境）】
+
 ・PHP: 7.4.9
 
 ・Laravel Framework: 8.83.27
