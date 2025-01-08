@@ -21,6 +21,7 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
 // ユーザーがフォームで送信した予約内容をデータベースに保存します。
+
 // バリデーション: 入力内容が正しいか（存在するショップID、日付、時間、人数の検証）を確認します。
 
         // バリデーション
@@ -30,6 +31,13 @@ class ReservationController extends Controller
             'time' => 'required',
             'number' => 'required|integer|min:1|max:20',
         ]);
+
+        // 選択された日時が過去でないことを確認
+        $selectedDateTime = Carbon::parse($validatedData['date'] . ' ' . $validatedData['time']);
+        if ($selectedDateTime < Carbon::now()) {
+            return back()->withErrors(['date' => '選択された日時は現在時刻より前です。']);
+        }
+
 
 // 予約情報にログインユーザーのID（Auth::id()）を追加し、start_at というフィールドに日時を統合して予約データを作成します。
         // ログインユーザーIDを追加し、start_at に日時を統合
@@ -90,6 +98,12 @@ class ReservationController extends Controller
             'time' => 'required',
             'number' => 'required|integer|min:1|max:20',
         ]);
+
+        // 選択された日時が過去でないことを確認
+        $selectedDateTime = Carbon::parse($validatedData['date'] . ' ' . $validatedData['time']);
+        if ($selectedDateTime < Carbon::now()) {
+            return back()->withErrors(['date' => '選択された日時は現在時刻より前です。']);
+        }
 
         try {
             $shop = Shop::findOrFail($validatedData['shop_id']);
