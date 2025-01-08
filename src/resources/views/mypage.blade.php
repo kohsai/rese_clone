@@ -50,35 +50,37 @@
                 <p>時間: {{ \Carbon\Carbon::parse($reservation->start_at)->format('H:i') }}</p>
                 <p>人数: {{ $reservation->num_of_users }}人</p> <!-- 予約人数 -->
 
-        <!-- 予約編集フォーム -->
-        @if ($editReservation && $editReservation->id == $reservation->id)
-        {{-- モーダルを開くためのチェックボックス --}}
-        <input type="checkbox" id="modal-toggle" class="modal-toggle" style="display: none;" checked>
-        {{-- モーダル風のデザイン --}}
-        <div class="modal-overlay">
-            <div class="modal-content">
-                <form action="{{ route('reservations.update', $reservation->id) }}" method="POST">
-            @method('PUT')
-            @csrf
-            <h3>予約情報の変更</h3>
-            <div class="modal-input-group">
-                <label for="date">予約日:</label>
-                <input type="date" name="date" id="date" value="{{ \Carbon\Carbon::parse($reservation->start_at)->format('Y-m-d') }}">
-            </div>
+<!-- 予約編集フォーム -->
+    @if ($editReservation && $editReservation->id == $reservation->id)
+    {{-- モーダルを開くためのチェックボックス --}}
+    <input type="checkbox" id="modal-toggle" class="modal-toggle" style="display: none;" checked>
+    {{-- モーダル風のデザイン --}}
+    <div class="modal-overlay">
+        <div class="modal-content">
+        <form action="{{ route('reservations.update', $reservation->id) }}" method="POST">
+        @method('PUT')
+        @csrf
+        <h3>予約情報の変更</h3>
+        <div class="modal-input-group">
+            <label for="date">予約日:</label>
+            <input type="date" name="date" id="date" value="{{ \Carbon\Carbon::parse($reservation->start_at)->format('Y-m-d') }}" min="{{ \Carbon\Carbon::today()->toDateString() }}">
+        </div>
 
 <div class="modal-input-group">
     <label for="time">時間:</label>
     <select name="time" id="time" required>
         @for ($hour = 10; $hour <= 22; $hour++)
-            <option value="{{ sprintf('%02d:00', $hour) }}"
-                {{ \Carbon\Carbon::parse($reservation->start_at)->format('H:i') == sprintf('%02d:00', $hour) ? 'selected' : '' }}>
-                {{ sprintf('%02d:00', $hour) }}
-            </option>
-            <option value="{{ sprintf('%02d:30', $hour) }}"
-                {{ \Carbon\Carbon::parse($reservation->start_at)->format('H:i') == sprintf('%02d:30', $hour) ? 'selected' : '' }}>
-                {{ sprintf('%02d:30', $hour) }}
-            </option>
-        @endfor
+    <option value="{{ sprintf('%02d:00', $hour) }}"
+    {{ \Carbon\Carbon::parse($reservation->start_at)->format('H:i') == sprintf('%02d:00', $hour) ? 'selected' : '' }}>
+    {{ sprintf('%02d:00', $hour) }}
+    </option>
+
+    <option value="{{ sprintf('%02d:30', $hour) }}"
+    {{ \Carbon\Carbon::parse($reservation->start_at)->format('H:i') == sprintf('%02d:30', $hour) ? 'selected' : '' }}>
+    {{ sprintf('%02d:30', $hour) }}
+    </option>
+
+    @endfor
     </select>
 </div>
 
