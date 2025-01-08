@@ -70,14 +70,15 @@ value属性: 入力済みのデータがあれば、デフォルト値として�
 session('confirmationData.date'): セッションデータから以前の入力値を取得。
 old('data', ''): セッションデータがない場合に、さらに古い入力値（oldヘルパー）をチェック。
 最終的に値がない場合、空文字列を使用。 --}}
-                    <label for="date">日付:</label>
-                    <input type="date" name="date" id="date" required style="width: 200px;" value="{{ session('confirmationData.date', old('data', '')) }}">
-                </div>
+      <label for="date">日付:</label>
+      <input type="date" name="date" id="date" required style="width: 200px;"
+      value="{{ session('confirmationData.date', old('data', '')) }}"
+      min="{{ \Carbon\Carbon::today()->toDateString() }}">
+      </div>
 
-
-                {{-- 時間選択。過去の入力値に応じて選択状態を保持。 --}}
-                <div class="show-form-group">
-                    <label for="time">時間:</label>
+    {{-- 時間選択。過去の入力値に応じて選択状態を保持。 --}}
+    <div class="show-form-group">
+    <label for="time">時間:</label>
 {{-- for="time": 対応するid="time"のセレクトボックスをクリック可能に。 --}}
 
 {{-- name="time": フォーム送信時にこのフィールドの値がtimeとして送信される。
@@ -85,51 +86,51 @@ id="time": ラベルと連携し、スタイルやスクリプトで利用。 --
 {{-- 開始時刻と終了時刻:
 $hour = 10: 営業開始時刻（午前10時）。 $hour <= 22: 営業終了時刻（午後10時）。
 ループ内で2つの選択肢を生成: 時刻: XX:00（毎時ちょうど）。時刻: XX:30（毎時30分）。 --}}
-                      <select name="time" id="time" required>
-                        @for ($hour = 10; $hour <= 22; $hour++)
+    <select name="time" id="time" equired>
+    @for ($hour = 10; $hour <= 22; $hour++)
 {{-- sprintf('%02d:00', $hour)は、数字を2桁にフォーマット。
 例: $hour=10 → 10:00、$hour=22 → 22:00。 --}}
-                          <option value="{{ sprintf('%02d:00', $hour) }}"
+    <option value="{{ sprintf('%02d:00', $hour) }}"
 {{-- セッションに以前の選択値がある場合、その値が一致する選択肢をデフォルトで選択状態（selected）。例: 以前に「11:30」を選んだ場合、該当する選択肢が選択された状態で表示。                        --}}
-                          {{ (session('confirmationData.time') == sprintf('%02d:00', $hour)) ? 'selected' : '' }}>
-                        {{ sprintf('%02d:00', $hour) }}
-                          </option>
+    {{ (session('confirmationData.time') == sprintf('%02d:00', $hour)) ? 'selected' : '' }}>
+    {{ sprintf('%02d:00', $hour) }}
+    </option>
 
-                          <option value="{{ sprintf('%02d:30', $hour) }}"
-                          {{ (session('confirmationData.time') == sprintf('%02d:30', $hour)) ? 'selected' : '' }}>
-                        {{ sprintf('%02d:30', $hour) }}
-                          </option>
-                        @endfor
-                      </select>
-                </div>
+    <option value="{{ sprintf('%02d:30', $hour) }}"
+    {{ (session('confirmationData.time') == sprintf('%02d:30', $hour)) ? 'selected' : '' }}>
+    {{ sprintf('%02d:30', $hour) }}
+    </option>
+    @endfor
+    </select>
+    </div>
 
-                {{-- 人数選択。過去の入力値に応じて選択状態を保持。 --}}
-                <div class="show-form-group">
-                    <label for="number">人数:</label>
-                    <select name="number" id="number" required>
-                        @for ($i = 1; $i <= 20; $i++)
-                            <option value="{{ $i }}"
-                              {{ (session('confirmationData.number', old('number')) == $i) ? 'selected' : '' }}>
-                              {{ $i }}人
-                            </option>
-                        @endfor
-                    </select>
-                </div>
+    {{-- 人数選択。過去の入力値に応じて選択状態を保持。 --}}
+    <div class="show-form-group">
+      <label for="number">人数:</label>
+      <select name="number" id="number" required>
+        @for ($i = 1; $i <= 20; $i++)
+        <option value="{{ $i }}"
+      {{ (session('confirmationData.number', old('number')) == $i) ? 'selected' : '' }}>
+      {{ $i }}人
+        </option>
+        @endfor
+      </select>
+    </div>
 
-          <div class="confirm-button-group">
-            {{-- 確認するボタン。フォームを送信して予約内容を確認する。
+    <div class="confirm-button-group">
+  {{-- 確認するボタン。フォームを送信して予約内容を確認する。
 type="submit": ボタンをクリックすると、フォームの内容を指定されたaction（reservations.confirm）へ送信。--}}
-            <button type="submit" class="show-confirm-button">
-            確認する
-            </button>
-            </form>
+    <button type="submit" class="show-confirm-button">
+    確認する
+    </button>
+    </form>
 
-            {{-- 選びなおすボタン --}}
- {{-- リンクボタン: 予約情報をリセットするページ（reservations.reset）に移動。パラメータとしてshop_idを送信し、リセット対象の店舗を識別。 --}}
-                <a href="{{ route('reservations.reset', ['shop' => $shop->id]) }}" class="select-again-button">
-                    選びなおす
-                </a>
-          </div>
+    {{-- 選びなおすボタン --}}
+  {{-- リンクボタン: 予約情報をリセットするページ（reservations.reset）に移動。パラメータとしてshop_idを送信し、リセット対象の店舗を識別。 --}}
+      <a href="{{ route('reservations.reset', ['shop' => $shop->id]) }}" class="select-again-button">
+      選びなおす
+      </a>
+      </div>
 
 
         <!-- 確認情報の表示 -->
