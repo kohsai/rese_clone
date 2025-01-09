@@ -688,4 +688,13 @@ background-color: green;
     background-color: blue;
 }
 
+.alert-danger {
+    width: auto;
+    color: #fff;
+    background-color: #d9534f;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
 /* ----------------------------------------------- */

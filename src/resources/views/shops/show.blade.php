@@ -55,6 +55,14 @@ $shop->genre->genre_nameはジャンル情報を表示。
 {{-- 右側の予約フォーム --}}
     <div class="reservation-form">
         <h2>予約</h2>
+
+    {{-- エラーメッセージの表示 --}}
+    @if (session()->has('error_message'))
+        <div class="alert alert-danger">
+            {{ session('error_message') }}
+        </div>
+    @endif
+
             <form action="{{ route('reservations.confirm') }}" method="POST">
                 @csrf
                 <input type="hidden" name="shop_id" value="{{ $shop->id }}">

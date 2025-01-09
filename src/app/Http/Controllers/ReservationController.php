@@ -38,6 +38,16 @@ class ReservationController extends Controller
             return back()->withErrors(['date' => '選択された日時は現在時刻より前です。']);
         }
 
+        // 予約の競合チェック
+        $isConflict = Reservation::where('shop_id', $validatedData['shop_id'])
+        ->where('start_at', $selectedDateTime)
+        ->exists();
+
+        if ($isConflict) {
+            return back()->withErrors(['date' => 'この日時ではすでに予約が埋まっています。他の日時を選択してください。']);
+        }
+
+
 
 // 予約情報にログインユーザーのID（Auth::id()）を追加し、start_at というフィールドに日時を統合して予約データを作成します。
         // ログインユーザーIDを追加し、start_at に日時を統合
@@ -101,8 +111,11 @@ class ReservationController extends Controller
 
         // 選択された日時が過去でないことを確認
         $selectedDateTime = Carbon::parse($validatedData['date'] . ' ' . $validatedData['time']);
+
         if ($selectedDateTime < Carbon::now()) {
-            return back()->withErrors(['date' => '選択された日時は現在時刻より前です。']);
+            // エラーメッセージをセッションに保存
+            Session::flash('error_message', '選択された日時は現在時刻より前です。選びなおしてください。');
+            return redirect()->route('shops.show', ['shop' => $request->shop_id]);
         }
 
         try {
