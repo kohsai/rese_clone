@@ -48,27 +48,41 @@ class ReservationController extends Controller
             ]);
         }
 
-        // 予約の競合チェック
+        // 予約の競合チェック（同じ店舗で同じ日時）
         $isConflict = Reservation::where('shop_id', $validatedData['shop_id'])
-        ->where('start_at', $selectedDateTime)
-        ->exists();
+            ->whereDate('start_at', '=', $selectedDateTime->toDateString()) //日付部分の一致
+            ->whereTime('start_at', '=',
+                $selectedDateTime->toTimeString()
+            ) //時間部分の一致
+            ->exists();
 
         if ($isConflict) {
-            return back()->withErrors(['date' => 'この日時ではすでに予約が埋まっています。他の日時を選択してください。']);
+            return back()->withErrors(['date' => 'あなたはすでにこの予約を完了し、保存されています。']);
         }
 
 
+    // 同一ユーザーが同じ時間帯に予約を複数選べないようにする
+        $isDuplicateReservation = Reservation::where('user_id', Auth::id()) // ユーザーIDで検索
+
+            ->whereDate('start_at', '=', $selectedDateTime->toDateString()) // 日付部分の一致
+            ->whereTime('start_at', '=', $selectedDateTime->toTimeString()) // 時間部分の一致
+            ->exists(); // 既に予約があるか確認
+
+        if ($isDuplicateReservation) {
+            return back()->withErrors(['date' => '同じ時刻に複数店舗の予約はできません。別の時間を選んでください。']);
+        }
+
+
+
 // 予約情報にログインユーザーのID（Auth::id()）を追加し、start_at というフィールドに日時を統合して予約データを作成。
-        // ログインユーザーIDを追加し、start_at に日時を統合
         $reservationData = [
             'shop_id' => $validatedData['shop_id'],
             'user_id' => Auth::id(),
             'num_of_users' => $validatedData['number'],
-            'start_at' => $validatedData['date'] . ' ' . $validatedData['time'],
+            'start_at' =>  $selectedDateTime->format('Y-m-d H:i:s'), // ここで正しい日時形式で保存
         ];
 
         // 予約が保存された後、セッションの確認データをクリアし、完了画面へリダイレクト。
-        // データベースに予約を保存
         Reservation::create($reservationData);
 
         // セッションデータをクリア

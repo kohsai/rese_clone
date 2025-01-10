@@ -332,6 +332,17 @@ margin-left: 8%;
   font-weight: bold; /* 太字 */
 }
 
+.past-reservation-message {
+    width: auto;
+    color: #fff;
+    background-color: #d9534f;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+
 /* 予約情報の内容 */
 .reservation-details {
   line-height: 1.5; /* 行間を調整 */

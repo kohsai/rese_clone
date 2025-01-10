@@ -36,12 +36,18 @@
         <h3>予約状況</h3>
             <div class="reservation-list">
             @if (!empty($reservations) && count($reservations) > 0)
+
             <!-- 予約情報をループで表示 -->
             @foreach ($reservations as $index => $reservation)
                 <div class="reservation-item">
                     <div class="reservation-header">
                         <i class="fa-solid fa-clock"></i>
                         <span class="reservation-number">予約{{ $index + 1 }}</span> <!-- 何番目の予約か表示 -->
+
+    <!-- 予約時刻が過去のものである場合のメッセージ表示 -->
+        @if (\Carbon\Carbon::parse($reservation->start_at)->isPast())
+            <p class="past-reservation-message">過去の時刻の予約です。キャンセルか変更しましょう。</p>
+        @endif
                     </div>
 
             <div class="reservation-details">
@@ -81,7 +87,7 @@
 <div class="modal-input-group">
     <label for="time">時間:</label>
     <select name="time" id="time" required>
-        @for ($hour = 10; $hour <= 22; $hour++)
+        @for ($hour = 0; $hour <= 23; $hour++)
     <option value="{{ sprintf('%02d:00', $hour) }}"
     {{ old('time', \Carbon\Carbon::parse($reservation->start_at)->format('H:i')) == sprintf('%02d:00', $hour) ? 'selected' : '' }}>
     {{ sprintf('%02d:00', $hour) }}
