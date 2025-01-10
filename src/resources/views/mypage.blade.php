@@ -57,13 +57,25 @@
     {{-- モーダル風のデザイン --}}
     <div class="modal-overlay">
         <div class="modal-content">
+
+
         <form action="{{ route('reservations.update', $reservation->id) }}" method="POST">
         @method('PUT')
         @csrf
         <h3>予約情報の変更</h3>
+
+        @if ($errors->any())
+            <div class="error-messages">
+                    @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                    @endforeach
+            </div>
+        @endif
+
+
         <div class="modal-input-group">
             <label for="date">予約日:</label>
-            <input type="date" name="date" id="date" value="{{ \Carbon\Carbon::parse($reservation->start_at)->format('Y-m-d') }}" min="{{ \Carbon\Carbon::today()->toDateString() }}">
+            <input type="date" name="date" id="date" value="{{ old('data', \Carbon\Carbon::parse($reservation->start_at)->format('Y-m-d')) }}" min="{{ \Carbon\Carbon::today()->toDateString() }}">
         </div>
 
 <div class="modal-input-group">
@@ -71,12 +83,12 @@
     <select name="time" id="time" required>
         @for ($hour = 10; $hour <= 22; $hour++)
     <option value="{{ sprintf('%02d:00', $hour) }}"
-    {{ \Carbon\Carbon::parse($reservation->start_at)->format('H:i') == sprintf('%02d:00', $hour) ? 'selected' : '' }}>
+    {{ old('time', \Carbon\Carbon::parse($reservation->start_at)->format('H:i')) == sprintf('%02d:00', $hour) ? 'selected' : '' }}>
     {{ sprintf('%02d:00', $hour) }}
     </option>
 
     <option value="{{ sprintf('%02d:30', $hour) }}"
-    {{ \Carbon\Carbon::parse($reservation->start_at)->format('H:i') == sprintf('%02d:30', $hour) ? 'selected' : '' }}>
+    {{ old('time', \Carbon\Carbon::parse($reservation->start_at)->format('H:i')) == sprintf('%02d:30', $hour) ? 'selected' : '' }}>
     {{ sprintf('%02d:30', $hour) }}
     </option>
 

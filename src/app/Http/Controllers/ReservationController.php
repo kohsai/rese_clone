@@ -32,10 +32,20 @@ class ReservationController extends Controller
             'number' => 'required|integer|min:1|max:20',
         ]);
 
-        // 選択された日時が過去でないことを確認
+        // 選択された日時を作成
         $selectedDateTime = Carbon::parse($validatedData['date'] . ' ' . $validatedData['time']);
+
+        // 選択された日時が過去の場合
         if ($selectedDateTime < Carbon::now()) {
-            return back()->withErrors(['date' => '選択された日時は現在時刻より前です。']);
+            $nearestTime = Carbon::now()->ceilMinutes(30)->format('H:i');
+            $nearestDate = Carbon::now()->ceilMinutes(30)->format('Y-m-d');
+
+        // 過去の日時が選ばれている場合のエラーメッセージ
+            return back()->withErrors(['date' => '現在時刻より未来の時刻を選んでください。'])
+            ->withInput([
+                'date' => $nearestDate,
+                'time' => $nearestTime,
+            ]);
         }
 
         // 予約の競合チェック
@@ -48,8 +58,7 @@ class ReservationController extends Controller
         }
 
 
-
-// 予約情報にログインユーザーのID（Auth::id()）を追加し、start_at というフィールドに日時を統合して予約データを作成します。
+// 予約情報にログインユーザーのID（Auth::id()）を追加し、start_at というフィールドに日時を統合して予約データを作成。
         // ログインユーザーIDを追加し、start_at に日時を統合
         $reservationData = [
             'shop_id' => $validatedData['shop_id'],
@@ -58,7 +67,7 @@ class ReservationController extends Controller
             'start_at' => $validatedData['date'] . ' ' . $validatedData['time'],
         ];
 
-// 予約が保存された後、セッションの確認データをクリアし、完了画面へリダイレクトします。
+        // 予約が保存された後、セッションの確認データをクリアし、完了画面へリダイレクト。
         // データベースに予約を保存
         Reservation::create($reservationData);
 
@@ -67,6 +76,20 @@ class ReservationController extends Controller
         Session::forget('confirmationFlag');
 
         return redirect()->route('reservations.done')->with('message', '予約が完了しました！');
+    }
+
+    /**
+     * プライベートメソッド: 現在時刻を指定の間隔で切り上げ
+     *
+     * @param Carbon $time
+     * @param int $interval
+     * @return Carbon
+     */
+    private function ceilMinutes(Carbon $time, $interval)
+    {
+        $currentMinutes = $time->minute; // 現在の分
+        $extraMinutes = ($interval - $currentMinutes % $interval) % $interval; // 次の切り上げまでの分数
+        return $time->copy()->addMinutes($extraMinutes)->second(0); // 切り上げて秒をリセット
     }
 
 
@@ -114,7 +137,7 @@ class ReservationController extends Controller
 
         if ($selectedDateTime < Carbon::now()) {
             // エラーメッセージをセッションに保存
-            Session::flash('error_message', '選択された日時は現在時刻より前です。選びなおしてください。');
+            Session::flash('error_message', '現在時刻より未来の時刻を選んでください。');
             return redirect()->route('shops.show', ['shop' => $request->shop_id]);
         }
 
@@ -184,10 +207,30 @@ class ReservationController extends Controller
         // 該当の予約を取得
         $reservation = Reservation::findOrFail($id);
 
+        // 新しい日時を組み合わせる
+        $selectedDateTime = Carbon::parse($request->date . ' ' . $request->time);
+
+        // 現在時刻より過去の日時が選ばれている場合
+        if ($selectedDateTime < Carbon::now()) {
+            // 現在時刻から最も近い30分刻みの時刻に切り上げ
+            $nearestTime = Carbon::now()->ceilMinutes(30)->format('H:i');
+            $nearestDate = Carbon::now()->format('Y-m-d'); // 現在の日付を使用
+
+            // エラーメッセージとともに30分刻みの修正時刻を返す
+            return back()->withErrors(['date' => '現在時刻より未来の時刻を選んでください。'])
+                ->withInput([
+                    'date' => $nearestDate, // 修正された日付を表示
+                    'time' => $nearestTime, // 修正された時刻を表示
+                ]);
+        }
+
         // 予約情報を更新
-        $reservation->start_at = $request->date . ' ' . $request->time;
+        $reservation->start_at = $selectedDateTime;
         $reservation->num_of_users = $request->num_of_users;
         $reservation->save();
+
+        // 予約更新後にセッションの old データをリセット（必要に応じて）
+        session()->forget('_old_input'); // old データをリセット
 
         // ユーザーにフィードバックを提供
         return redirect()->route('mypage')->with('status', '予約を変更しました！');
