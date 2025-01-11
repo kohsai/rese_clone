@@ -238,6 +238,20 @@ class ReservationController extends Controller
                 ]);
         }
 
+    // 重複予約チェック：同じユーザーが同じ日時にすでに予約していないか確認
+        $isDuplicateReservation = Reservation::where('user_id', Auth::id()) // ユーザーIDで検索
+            ->whereDate('start_at', '=', $selectedDateTime->toDateString()) // 日付部分の一致
+            ->whereTime('start_at', '=', $selectedDateTime->toTimeString()) // 時間部分の一致
+            ->where('id', '!=',
+                $id
+            ) // 自分の予約以外を対象
+            ->exists(); // 重複している場合に存在する
+
+        if ($isDuplicateReservation) {
+            return back()->withErrors(['date' => '同じ時刻に他の予約が存在します。別の日時を選んでください。']);
+        }
+
+
         // 予約情報を更新
         $reservation->start_at = $selectedDateTime;
         $reservation->num_of_users = $request->num_of_users;
