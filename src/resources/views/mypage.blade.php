@@ -148,7 +148,7 @@
 
     {{-- 右側: お気に入り店舗 --}}
     <div class="favorites">
-        <h3>お気に入り店舗</h3>
+        <h3>お気に入り店舗（※ お気に入りの解除はトップページで行なってください。）</h3>
         <div class="favorites-container">
         @if (!empty($favorites) && count($favorites) > 0)
         @foreach ($favorites as $shop)
