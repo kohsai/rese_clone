@@ -87,7 +87,7 @@ $shop->genre->genre_nameはジャンル情報を表示。
     <div class="show-form-group">
     <label for="time">時間:</label>
     <select name="time" id="time" equired>
-    @for ($hour = 0; $hour <= 23; $hour++)
+    @for ($hour = 10; $hour <= 22; $hour++)
     <option value="{{ sprintf('%02d:00', $hour) }}"
 
     {{ (session('confirmationData.time') == sprintf('%02d:00', $hour)) ? 'selected' : '' }}>

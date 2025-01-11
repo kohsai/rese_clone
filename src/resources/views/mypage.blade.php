@@ -87,7 +87,7 @@
 <div class="modal-input-group">
     <label for="time">時間:</label>
     <select name="time" id="time" required>
-        @for ($hour = 0; $hour <= 23; $hour++)
+        @for ($hour = 10; $hour <= 22; $hour++)
     <option value="{{ sprintf('%02d:00', $hour) }}"
     {{ old('time', \Carbon\Carbon::parse($reservation->start_at)->format('H:i')) == sprintf('%02d:00', $hour) ? 'selected' : '' }}>
     {{ sprintf('%02d:00', $hour) }}
