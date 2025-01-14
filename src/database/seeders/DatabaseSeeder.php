@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(ShopsTableSeeder::class);
+        // 各シーダーを呼び出し
+        $this->call(AreaSeeder::class);
+        $this->call(GenreSeeder::class);
+        $this->call(ShopSeeder::class);
     }
 }
