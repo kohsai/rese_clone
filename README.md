@@ -59,6 +59,15 @@ php artisan key:generate
 
 php artisan migrate
 
+
+【　初期データの登録（シードの実行）　】
+
+php artisan migrate --seed
+
+注意:
+シードの実行により、エリアやジャンル、店舗情報の初期データがデータベースに挿入されます。この操作は必須です。
+
+
 【　使用技術（実行環境）】
 
 ・PHP: 7.4.9
