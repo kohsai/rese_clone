@@ -21,6 +21,8 @@
 
 /done	　　   予約完了ページ
 
+（※ /shops/create  新規店舗追加ページ）
+
 
 【　環境構築　】
 Dockerビルド
