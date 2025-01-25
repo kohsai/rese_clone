@@ -122,6 +122,16 @@ DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 
 
+【 コンテナ内に .env ファイルをコピー 】
+
+.env ファイルをコンテナ内にコピーします。
+これを忘れると、composer install や php artisan コマンドでエラーが発生することがあります。
+
+docker cp .env <コンテナ名>:/var/www/.env
+
+※ <コンテナ名> は、docker ps コマンドで確認できます。
+
+
 【 .env ファイルの権限を設定します。 】
 
 docker-compose exec php chmod 644 /var/www/.env
