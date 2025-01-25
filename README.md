@@ -27,7 +27,7 @@
 【　環境構築　】
 Dockerビルド
 
-git@github.com:kohsai/rese.git
+git@github.com:kohsai/rese_clone.git
 
 
 DockerDesktopアプリを立ち上げる
