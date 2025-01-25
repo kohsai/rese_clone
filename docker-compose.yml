@@ -17,6 +17,9 @@ services:
         build: ./docker/php
         volumes:
             - ./src:/var/www/
+            - ./.env:/var/www/.env  # .env ファイルを自動的にマウント
+        depends_on:
+            - mysql
 
     mysql:
         image: mysql:8.0.26
